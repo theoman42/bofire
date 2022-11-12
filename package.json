@@ -1,5 +1,5 @@
 {
-  "name": "authenticate-me",
+  "name": "capstone",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,7 +13,15 @@
     "start": "npm start --prefix backend",
     "build": "npm run build --prefix backend"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theoman42/bofire.git"
+  },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theoman42/bofire/issues"
+  },
+  "homepage": "https://github.com/theoman42/bofire#readme"
 }
