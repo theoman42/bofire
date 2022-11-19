@@ -1,9 +1,15 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import sessionReducer from "./session";
 import thunk from "redux-thunk";
+import userOwnedHomesReducer from "./userOwnedHomes";
+import userPartHomesReducer from "./userPartHomes";
+import currentMenuContentReducer from "./currentMenuContent";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
+  userOwnedHomes: userOwnedHomesReducer,
+  userPartHomes: userPartHomesReducer,
+  currentMenuContent: currentMenuContentReducer,
 });
 let enhancer;
 

@@ -4,7 +4,6 @@ import { Route, Switch } from "react-router-dom";
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
-import Navigation from "./components/Navigation";
 import TheApp from "./components/TheApp.js/index.js";
 
 function App() {
@@ -21,8 +20,7 @@ function App() {
       {isLoaded &&
         (user ? (
           <Route path="/">
-            <Navigation isLoaded={isLoaded} />
-            <TheApp />
+            <TheApp userId={user.id} isLoaded={isLoaded} />
           </Route>
         ) : (
           <Route path="/">

@@ -1,9 +1,10 @@
 const express = require("express");
 
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { User } = require("../../db/models");
+const { User, Home, UserHomeJoins } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
+const { Op } = require("sequelize");
 
 const router = express.Router();
 
@@ -34,6 +35,97 @@ router.post("/", validateSignup, async (req, res) => {
   return res.json({
     user,
   });
+});
+
+// Add Home to User
+router.post("/:userId/ownedHomes", async (req, res) => {
+  let { userId } = req.params;
+  let { homeName, imgUrl } = req.body;
+  userId = parseInt(userId);
+
+  const newHome = await Home.create({
+    homeName,
+    ownerId: userId,
+    imgUrl,
+  });
+
+  if (!newHome) {
+    const err = new Error("Error Creating Home");
+    err.status = 404;
+    throw err;
+  } else {
+    res.json({
+      newHome,
+    });
+  }
+});
+
+// Get homes that user belongs to
+router.get("/:userId/partHomes", async (req, res) => {
+  let { userId } = req.params;
+  userId = parseInt(userId);
+
+  const userPartHomes = await User.findOne({
+    where: { id: userId },
+    include: [
+      {
+        model: Home,
+        where: {
+          ownerId: {
+            [Op.ne]: userId,
+          },
+        },
+      },
+    ],
+  });
+
+  return res.json({
+    userPartHomes,
+  });
+});
+
+// Get homes that user owns
+router.get("/:userId/ownedHomes", async (req, res) => {
+  let { userId } = req.params;
+  userId = parseInt(userId);
+
+  const userOwnedHomes = await Home.findAll({
+    where: { ownerId: userId },
+  });
+
+  return res.json(userOwnedHomes);
+});
+
+// update homes that user owns
+router.put("/:userId/ownedHomes/:homeId", async (req, res) => {
+  let { userId, homeId } = req.params;
+  userId = parseInt(userId);
+
+  const home = await Home.findOne({
+    where: {
+      [Op.and]: [{ id: homeId }, { ownerId: userId }],
+    },
+  });
+
+  const updatedHome = await home.update({
+    ...req.body,
+  });
+
+  return res.json({
+    updatedHome,
+  });
+});
+
+router.delete("/:userId/ownedHomes/:homeId", async (req, res) => {
+  let { userId, homeId } = req.params;
+  userId = parseInt(userId);
+
+  const deleted = await Home.destroy({
+    where: {
+      [Op.and]: [{ id: homeId }, { ownerId: userId }],
+    },
+  });
+  if (deleted) return res.json({ homeId });
 });
 
 module.exports = router;

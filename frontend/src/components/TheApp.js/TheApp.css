@@ -1,0 +1,19 @@
+.the-app-styling-container {
+  display: flex;
+  background-color: orangered;
+}
+
+.right-bar-wrapper {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 5vw;
+  padding: 10px 0px;
+}
+
+.right-bar-profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -40,11 +40,25 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static associate(models) {
-      // define association here
+      User.hasMany(models.Home, {
+        foreignKey: "ownerId",
+        onDelete: "CASCADE",
+      });
+      User.belongsToMany(models.Home, {
+        through: "UserHomeJoins",
+        foreignKey: "userId",
+        onDelete: "CASCADE",
+      });
     }
   }
   User.init(
     {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
       username: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -72,6 +86,14 @@ module.exports = (sequelize, DataTypes) => {
           len: [60, 60],
         },
       },
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
     },
     {
       sequelize,
@@ -84,6 +106,9 @@ module.exports = (sequelize, DataTypes) => {
       scopes: {
         currentUser: {
           attributes: { exclude: ["hashedPassword"] },
+          // include: {
+          //   model: Home,
+          // },
         },
         loginUser: {
           attributes: {},

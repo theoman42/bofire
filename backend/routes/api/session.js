@@ -1,6 +1,6 @@
 const express = require("express");
 const { setTokenCookie, restoreUser } = require("../../utils/auth");
-const { User } = require("../../db/models");
+const { User, UserHomeJoins, Home } = require("../../db/models");
 const router = express.Router();
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
@@ -28,6 +28,18 @@ router.post("/", async (req, res, next) => {
     err.errors = ["The provided credentials were invalid."];
     return next(err);
   }
+
+  // const derp = await User.findOne({
+  //   where: { id: user.id },
+  //   include: {
+  //     model: Home,
+  //     through: {
+  //       attributes: [],
+  //     },
+  //   },
+  // });
+
+  // console.log(user);
 
   await setTokenCookie(res, user);
 

@@ -1,4 +1,9 @@
 /* TODO Add site wide styles */
+body {
+  margin: 0px;
+  overflow-y: hidden;
+}
+
 a {
   text-decoration: none;
   color: black;
@@ -26,4 +31,42 @@ button {
 .form-container {
   display: flex;
   flex-direction: column;
+}
+
+/* Icon Styling */
+
+.icons {
+  display: flex;
+  justify-content: center;
+  border: 1px solid;
+  border-radius: 100%;
+  height: 35px;
+  width: 35px;
+  padding: 5px;
+  transition: 0.3s;
+  background-color: rgb(48, 47, 47);
+  margin: 7px 0px;
+}
+
+.icons:hover {
+  background-color: white;
+  border-radius: 10px;
+}
+
+.icons svg{
+  height: 100%;
+  width: 100%;
+  color: white;
+}
+
+.icons:hover svg {
+  color: black;
+}
+
+.icons img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  border-radius: 100%;
+  background-color: transparent;
 }
