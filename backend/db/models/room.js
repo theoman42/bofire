@@ -1,29 +1,20 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Home extends Model {
+  class Room extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Home.belongsToMany(models.User, {
-        through: "UserHomeJoins",
+      Room.belongsTo(models.Home, {
         foreignKey: "homeId",
-        onDelete: "CASCADE",
-      });
-      Home.belongsTo(models.User, {
-        foreignKey: "ownerId",
-      });
-      Home.hasMany(models.Room, {
-        foreignKey: "homeId",
-        onDelete: "CASCADE",
         as: "rooms",
       });
     }
   }
-  Home.init(
+  Room.init(
     {
       id: {
         allowNull: false,
@@ -31,15 +22,15 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      homeName: {
+      roomName: {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      ownerId: {
+      homeId: {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
-      imgUrl: {
+      caption: {
         type: DataTypes.STRING,
       },
       createdAt: {
@@ -53,8 +44,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Home",
+      modelName: "Room",
     }
   );
-  return Home;
+  return Room;
 };
