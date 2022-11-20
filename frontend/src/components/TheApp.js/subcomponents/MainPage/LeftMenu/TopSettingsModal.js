@@ -4,33 +4,32 @@ import { RiSettings2Line } from "react-icons/ri";
 import { useEffect } from "react";
 import HomeSettingsForm from "./UpdateHomeSettingsForm";
 
-const SettingsModal = ({ type, content, setType }) => {
+const TopSettingsModal = ({ type, menuContent, setType }) => {
   const [showModal, setShowModal] = useState(false);
-  const [menuContent, setMenuContent] = useState("");
+  const [toRender, setToRender] = useState("");
 
   const onClose = () => {
     setShowModal(false);
   };
 
   useEffect(() => {
-    console.log(type);
     switch (type) {
       case "singleHome":
-        setMenuContent(
+        setToRender(
           <HomeSettingsForm
-            content={content}
+            menuContent={menuContent}
             onClose={onClose}
             setType={setType}
           />
         );
         break;
       case "homePage":
-        setMenuContent(<div>{"hi"}</div>);
+        setToRender(<div>{"hi"}</div>);
         break;
       default:
-        setMenuContent(<div>{"hi"}</div>);
+        setToRender(<div>{"hi"}</div>);
     }
-  }, [content]);
+  }, [menuContent, type]);
 
   return (
     <>
@@ -38,9 +37,9 @@ const SettingsModal = ({ type, content, setType }) => {
         className="add-spot-button"
         onClick={() => setShowModal(true)}
       ></RiSettings2Line>
-      {showModal && <Modal onClose={onClose}>{menuContent}</Modal>}
+      {showModal && <Modal onClose={onClose}>{toRender}</Modal>}
     </>
   );
 };
 
-export default SettingsModal;
+export default TopSettingsModal;

@@ -3,51 +3,50 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom";
 import { updateHome } from "../../../../../store/userOwnedHomes";
 import { getOneHomeContent } from "../../../../../store/currentMenuContent";
-import { deleteHome } from "../../../../../store/userOwnedHomes";
-import { goHome } from "../../../../../store/currentMenuContent";
 import { useEffect } from "react";
 
-const UpdateHomeSettingsForm = ({ onClose, menuContent, setType }) => {
+const UpdateRoomSettingsForm = ({ roomId, onClose }) => {
   const dispatch = useDispatch();
+  const [toRender, setToRender] = useState("");
 
   const user = useSelector((state) => state.session.user);
+  const menuContent = useSelector((state) => state.currentMenuContent);
+  const rooms = useSelector((state) => state.rooms);
+  console.log(rooms);
 
-  const [homeName, setHomeName] = useState("");
-  const [imgUrl, setImageUrl] = useState("");
+  const [roomName, setRoomName] = useState("");
+  const [caption, setCaption] = useState("");
   const [errors, setErrors] = useState([]);
 
+  const updateRoomName = (e) => setRoomName(e.target.value);
+  const updateCaption = (e) => setCaption(e.target.value);
+
   useEffect(() => {
-    setHomeName(menuContent.home.homeName);
-    setImageUrl(menuContent.home.imgUrl);
-  }, [menuContent]);
-  const updateHomeName = (e) => setHomeName(e.target.value);
-  const updateimgUrl = (e) => setImageUrl(e.target.value);
+    setRoomName(rooms[roomId].roomName);
+    setCaption(rooms[roomId].caption);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const payload = {
-      homeName,
-      imgUrl,
+      roomName,
+      caption,
     };
 
-    await dispatch(updateHome(payload, user.id, menuContent.home.id))
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
-      })
-      .then(async (res) => {
-        dispatch(getOneHomeContent(res.updatedHome.id));
-      });
-
+    // await dispatch(updateHome(payload, user.id, roomId))
+    //   .catch(async (res) => {
+    //     const data = await res.json();
+    //     if (data && data.errors) setErrors(data.errors);
+    //   })
+    //   .then(async (res) => {
+    //     dispatch(getOneHomeContent(res.updatedHome.id));
+    //   });
     onClose();
   };
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    dispatch(deleteHome(user.id, menuContent.home.id));
-    dispatch(goHome());
-    setType("homePage");
     onClose();
   };
 
@@ -62,17 +61,17 @@ const UpdateHomeSettingsForm = ({ onClose, menuContent, setType }) => {
         </ul>
         <input
           type="text"
-          placeholder="Name of Home"
+          placeholder="Room Name"
           required
-          value={homeName}
-          onChange={updateHomeName}
+          value={roomName}
+          onChange={updateRoomName}
         />
         <input
           type="text"
-          placeholder="Image URL"
+          placeholder="What's your room for??"
           required
-          value={imgUrl}
-          onChange={updateimgUrl}
+          value={caption}
+          onChange={updateCaption}
         />
         <button className="same-button" type="submit">
           Submit Form
@@ -82,4 +81,4 @@ const UpdateHomeSettingsForm = ({ onClose, menuContent, setType }) => {
   );
 };
 
-export default UpdateHomeSettingsForm;
+export default UpdateRoomSettingsForm;

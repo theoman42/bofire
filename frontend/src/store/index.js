@@ -4,12 +4,14 @@ import thunk from "redux-thunk";
 import userOwnedHomesReducer from "./userOwnedHomes";
 import userPartHomesReducer from "./userPartHomes";
 import currentMenuContentReducer from "./currentMenuContent";
+import roomsReducer from "./room";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   userOwnedHomes: userOwnedHomesReducer,
   userPartHomes: userPartHomesReducer,
   currentMenuContent: currentMenuContentReducer,
+  rooms: roomsReducer,
 });
 let enhancer;
 

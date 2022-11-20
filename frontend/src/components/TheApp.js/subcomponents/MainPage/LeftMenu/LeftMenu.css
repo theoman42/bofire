@@ -32,3 +32,25 @@
   padding-right: 20px;
   width: 20%;
 }
+
+.left-menu-content-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  color: white;
+}
+
+.rooms-heading-and-settings-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.room-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid salmon;
+  padding: 5px;
+  margin: 5px 0px;
+}

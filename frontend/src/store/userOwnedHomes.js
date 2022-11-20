@@ -80,7 +80,6 @@ export const deleteHome = (userId, homeId) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    console.log(data);
     dispatch(deleteOwnedHome(data.homeId));
     return data;
   }
@@ -104,7 +103,6 @@ const userOwnedHomesReducer = (state = {}, action) => {
       return newEditState;
     case DELETE_HOME:
       const newDeleteState = { ...state };
-      console.log(action);
       delete newDeleteState[action.payload];
       return newDeleteState;
     default:
