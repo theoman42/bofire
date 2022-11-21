@@ -7,10 +7,11 @@ import { deleteHome } from "../../../../../store/userOwnedHomes";
 import { goHome } from "../../../../../store/currentMenuContent";
 import { useEffect } from "react";
 
-const UpdateHomeSettingsForm = ({ onClose, menuContent, setType }) => {
-  const dispatch = useDispatch();
-
+const UpdateHomeSettingsForm = ({ onClose }) => {
   const user = useSelector((state) => state.session.user);
+  const menuContent = useSelector((state) => state.currentMenuContent);
+
+  const dispatch = useDispatch();
 
   const [homeName, setHomeName] = useState("");
   const [imgUrl, setImageUrl] = useState("");
@@ -20,6 +21,7 @@ const UpdateHomeSettingsForm = ({ onClose, menuContent, setType }) => {
     setHomeName(menuContent.home.homeName);
     setImageUrl(menuContent.home.imgUrl);
   }, [menuContent]);
+
   const updateHomeName = (e) => setHomeName(e.target.value);
   const updateimgUrl = (e) => setImageUrl(e.target.value);
 
@@ -47,7 +49,6 @@ const UpdateHomeSettingsForm = ({ onClose, menuContent, setType }) => {
     e.preventDefault();
     dispatch(deleteHome(user.id, menuContent.home.id));
     dispatch(goHome());
-    setType("homePage");
     onClose();
   };
 

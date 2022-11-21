@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ContentWhenInHouse from "./ContentWhenInHouse";
+import ProfileSettings from "./ProfileSettings";
 
-const LeftMenuContent = (isOwned) => {
+const LeftMenuContent = () => {
   const [contentForLeftMenu, setContentForLeftMenu] = useState("");
   const menuContent = useSelector((state) => state.currentMenuContent);
 
   useEffect(() => {
-    console.log(menuContent.type);
-    switch (menuContent.type) {
+    switch (menuContent?.type) {
       case "singleHome":
-        setContentForLeftMenu(<ContentWhenInHouse isOwned={isOwned} />);
+        setContentForLeftMenu(<ContentWhenInHouse />);
         break;
       case "homePage":
         setContentForLeftMenu(<div>This is a home</div>);
+        break;
+      case "profilePage":
+        setContentForLeftMenu(<ProfileSettings />);
         break;
       default:
         setContentForLeftMenu(<div>This is a home</div>);

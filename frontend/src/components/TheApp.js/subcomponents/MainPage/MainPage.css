@@ -1,8 +1,18 @@
 .main-page-wrapper {
   display: flex;
-  width: 90vw;
+  width: 80vw;
   height: 100vh;
   border-radius: 50px;
+}
+/* Left Section */
+
+.left-menu-wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(50, 50, 50);
+  border-radius: 10px 0px 0px 10px;
+  height: 100vh;
+  width: 12vw;
 }
 
 
@@ -12,7 +22,6 @@
   display: flex;
   flex-direction: column;
   background-color: rgb(80, 80, 80);
-  border-radius: 0px 10px 10px 0px;
   height: 100%;
-  width: 80%;
+  width: 68vw;
 }

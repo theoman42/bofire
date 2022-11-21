@@ -9,7 +9,7 @@ const AddHomeModal = () => {
   return (
     <>
       <AiOutlinePlusSquare
-        className="add-spot-button"
+        className="clicky"
         onClick={() => setShowModal(true)}
       ></AiOutlinePlusSquare>
       {showModal && (

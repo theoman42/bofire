@@ -18,12 +18,12 @@ const RoomSettingsModal = ({ roomId }) => {
   return (
     <>
       <RiSettings2Line
-        className="add-spot-button"
+        className="clicky"
         onClick={() => setShowModal(true)}
       ></RiSettings2Line>
       {showModal && (
         <Modal onClose={onClose}>
-          <UpdateRoomSettingsForm roomId={roomId} />
+          <UpdateRoomSettingsForm roomId={roomId} onClose={onClose} />
         </Modal>
       )}
     </>

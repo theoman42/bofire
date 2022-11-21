@@ -52,6 +52,29 @@ export const signup = (user) => async (dispatch) => {
   return response;
 };
 
+export const enterRoom = (userId, homeId, roomId) => async (dispatch) => {
+  const response = await csrfFetch(
+    `/api/users/${userId}/ownedHomes/${homeId}/rooms/${roomId}`,
+    {
+      method: "PUT",
+    }
+  );
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(setUser(data.user));
+  }
+};
+
+export const leaveRoom = (userId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/users/${userId}/leaveRoom`, {
+    method: "PUT",
+  });
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(setUser(data.user));
+  }
+};
+
 export const logout = () => async (dispatch) => {
   const response = await csrfFetch("/api/session", {
     method: "DELETE",

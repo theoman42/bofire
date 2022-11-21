@@ -1,7 +1,7 @@
 // frontend/src/components/Navigation/index.js
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import "./MainPage.css";
+import "../MainPage.css";
 
 const Content = () => {
   const sessionUser = useSelector((state) => state.session.user);

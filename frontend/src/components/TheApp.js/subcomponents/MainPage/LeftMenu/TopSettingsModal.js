@@ -3,8 +3,10 @@ import { Modal } from "../../../../../context/Modal";
 import { RiSettings2Line } from "react-icons/ri";
 import { useEffect } from "react";
 import HomeSettingsForm from "./UpdateHomeSettingsForm";
+import { useSelector } from "react-redux";
 
-const TopSettingsModal = ({ type, menuContent, setType }) => {
+const TopSettingsModal = () => {
+  const menuContent = useSelector((state) => state.currentMenuContent);
   const [showModal, setShowModal] = useState(false);
   const [toRender, setToRender] = useState("");
 
@@ -13,15 +15,9 @@ const TopSettingsModal = ({ type, menuContent, setType }) => {
   };
 
   useEffect(() => {
-    switch (type) {
+    switch (menuContent.type) {
       case "singleHome":
-        setToRender(
-          <HomeSettingsForm
-            menuContent={menuContent}
-            onClose={onClose}
-            setType={setType}
-          />
-        );
+        setToRender(<HomeSettingsForm onClose={onClose} />);
         break;
       case "homePage":
         setToRender(<div>{"hi"}</div>);
@@ -29,12 +25,12 @@ const TopSettingsModal = ({ type, menuContent, setType }) => {
       default:
         setToRender(<div>{"hi"}</div>);
     }
-  }, [menuContent, type]);
+  }, [menuContent]);
 
   return (
     <>
       <RiSettings2Line
-        className="add-spot-button"
+        className="clicky"
         onClick={() => setShowModal(true)}
       ></RiSettings2Line>
       {showModal && <Modal onClose={onClose}>{toRender}</Modal>}

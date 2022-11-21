@@ -1,8 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 const GET_HOME_CONTENT = "menu/getHomeContent";
-const GO_HOME = "menu/goHome";
-const GO_FRIEND = "menu/goFriend";
+const CHANGE_TYPE = "menu/changeType";
 
 export const getHomeContent = (data) => {
   return {
@@ -13,8 +12,15 @@ export const getHomeContent = (data) => {
 
 const goToHome = (data) => {
   return {
-    type: GO_HOME,
+    type: CHANGE_TYPE,
     payload: data,
+  };
+};
+
+export const goToProfile = () => {
+  return {
+    type: CHANGE_TYPE,
+    payload: { type: "profilePage" },
   };
 };
 
@@ -44,7 +50,7 @@ const currentMenuContentReducer = (state = {}, action) => {
     case GET_HOME_CONTENT:
       newState = action.payload;
       return newState;
-    case GO_HOME:
+    case CHANGE_TYPE:
       return action.payload;
     default:
       return state;

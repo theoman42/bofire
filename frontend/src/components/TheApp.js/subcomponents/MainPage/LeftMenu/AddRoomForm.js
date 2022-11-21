@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory, Redirect } from "react-router-dom";
+import { updateHome } from "../../../../../store/userOwnedHomes";
+import { getOneHomeContent } from "../../../../../store/currentMenuContent";
 import { useEffect } from "react";
-import { updateRoom, deleteRoom } from "../../../../../store/room";
+import { addRoom } from "../../../../../store/room";
 
-const UpdateRoomSettingsForm = ({ roomId, onClose }) => {
+const AddRoomForm = ({ onClose }) => {
   const dispatch = useDispatch();
-  const [toRender, setToRender] = useState("");
-
   const user = useSelector((state) => state.session.user);
   const homeId = useSelector((state) => state.currentMenuContent.home.id);
-  const rooms = useSelector((state) => state.rooms);
 
   const [roomName, setRoomName] = useState("");
   const [caption, setCaption] = useState("");
@@ -18,22 +18,19 @@ const UpdateRoomSettingsForm = ({ roomId, onClose }) => {
   const updateRoomName = (e) => setRoomName(e.target.value);
   const updateCaption = (e) => setCaption(e.target.value);
 
-  useEffect(() => {
-    setRoomName(rooms[roomId].roomName);
-    setCaption(rooms[roomId].caption);
-  }, []);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const payload = {
       roomName,
-      userId: user.id,
       caption,
+      userId: user.id,
     };
 
-    await dispatch(updateRoom(homeId, roomId, payload)).catch(async (res) => {
-      const data = await res.json();
+    console.log(homeId);
+
+    await dispatch(addRoom(homeId, payload)).catch(async (res) => {
+      const data = res;
       if (data && data.errors) setErrors(data.errors);
     });
     // .then(async (res) => {
@@ -42,15 +39,8 @@ const UpdateRoomSettingsForm = ({ roomId, onClose }) => {
     onClose();
   };
 
-  const handleDelete = async (e) => {
-    e.preventDefault();
-    dispatch(deleteRoom(user.id, homeId, roomId));
-    onClose();
-  };
-
   return (
     <div className="modal-form-wrapper">
-      <button onClick={handleDelete}>Delete</button>
       <form className="modal-form-container" onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
@@ -79,4 +69,4 @@ const UpdateRoomSettingsForm = ({ roomId, onClose }) => {
   );
 };
 
-export default UpdateRoomSettingsForm;
+export default AddRoomForm;

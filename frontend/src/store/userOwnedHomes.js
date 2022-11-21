@@ -80,7 +80,7 @@ export const deleteHome = (userId, homeId) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    dispatch(deleteOwnedHome(data.homeId));
+    dispatch(deleteOwnedHome(data.roomId));
     return data;
   }
 };

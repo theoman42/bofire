@@ -28,19 +28,6 @@ router.post("/", async (req, res, next) => {
     err.errors = ["The provided credentials were invalid."];
     return next(err);
   }
-
-  // const derp = await User.findOne({
-  //   where: { id: user.id },
-  //   include: {
-  //     model: Home,
-  //     through: {
-  //       attributes: [],
-  //     },
-  //   },
-  // });
-
-  // console.log(user);
-
   await setTokenCookie(res, user);
 
   return res.json({
@@ -48,9 +35,11 @@ router.post("/", async (req, res, next) => {
   });
 });
 
-router.get("/", restoreUser, (req, res) => {
+router.get("/", restoreUser, async (req, res) => {
   const { user } = req;
   if (user) {
+    user.currentRoomId = null;
+    await user.save();
     return res.json({
       user: user.toSafeObject(),
     });

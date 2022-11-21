@@ -3,48 +3,34 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import TopSettingsModal from "./TopSettingsModal";
 import LeftMenuContent from "./LeftMenuContent";
-import Dummy from "./Dummy";
 import "./LeftMenu.css";
 
-const LeftMenu = ({ isOwned, type, menuContent, setType }) => {
+const LeftMenu = () => {
   const user = useSelector((state) => state.session.user);
-  // const currentMenuContent = useSelector((state) => state.currentMenuContent);
+  const menuContent = useSelector((state) => state.currentMenuContent);
   const [title, setTitle] = useState("Default Title");
-  // const [content, setContent] = useState("");
-  // const [type, setType] = useState("homePage");
-  // const [isOwned, setIsOwned] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [isHome, setIsHome] = useState(false);
-
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   setType(currentMenuContent.type);
-  //   setContent(currentMenuContent);
-  // }, [currentMenuContent]);
 
   useEffect(() => {
-    switch (type) {
+    switch (menuContent.type) {
       case "singleHome":
         setTitle(menuContent.home.homeName);
-        if (isOwned) {
-          setShowSettings(true);
-          // setIsOwned(true);
-        } else {
-          setShowSettings(false);
-          // setIsOwned(false);
-        }
-        setIsHome(true);
+        if (menuContent.home.ownerId === user.id) setShowSettings(true);
+        else setShowSettings(false);
         break;
       case "homePage":
         setTitle("Home");
         setShowSettings(true);
         break;
+      case "profilePage":
+        setTitle(`${user.username}`);
+        setShowSettings(false);
+        break;
       default:
         setTitle("Home");
         setShowSettings(true);
     }
-  }, [type, menuContent]);
+  }, [menuContent, user]);
 
   return (
     <div className="left-menu-wrapper">
@@ -53,20 +39,10 @@ const LeftMenu = ({ isOwned, type, menuContent, setType }) => {
           <strong>{title}</strong>
         </div>
         <div className="left-menu-title-container-right-child">
-          {showSettings && (
-            <TopSettingsModal
-              type={type}
-              menuContent={menuContent}
-              setType={setType}
-            />
-          )}
+          {showSettings && <TopSettingsModal />}
         </div>
       </div>
-      <LeftMenuContent
-        isOwned={isOwned}
-        type={type}
-        menuContent={menuContent}
-      />
+      <LeftMenuContent />
     </div>
   );
 };

@@ -128,4 +128,53 @@ router.delete("/:userId/ownedHomes/:homeId", async (req, res) => {
   if (deleted) return res.json({ homeId });
 });
 
+// Enter Room
+
+router.put("/:userId/ownedHomes/:homeId/rooms/:roomId", async (req, res) => {
+  let { userId, roomId, homeId } = req.params;
+  userId = parseInt(userId);
+  roomId = parseInt(roomId);
+  const access = await UserHomeJoins.findOne({
+    where: {
+      [Op.and]: [{ homeId, homeId }, { userId: userId }],
+    },
+  });
+
+  const user = await User.findOne({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (access && user) {
+    user.currentRoomId = roomId;
+    await user.save();
+    res.json({
+      user,
+    });
+  }
+});
+
+// Leave Room
+
+router.put("/:userId/leaveRoom", async (req, res) => {
+  let { userId, roomId, homeId } = req.params;
+  userId = parseInt(userId);
+  roomId = parseInt(roomId);
+
+  const user = await User.findOne({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (user) {
+    user.currentRoomId = null;
+    await user.save();
+    res.json({
+      user,
+    });
+  }
+});
+
 module.exports = router;

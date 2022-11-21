@@ -30,7 +30,7 @@ const UserOwnedHomes = () => {
         </div>
         {userOwnedHomes?.map((home) => {
           return (
-            <div className="icons" onClick={() => loadHome(home.id)}>
+            <div className="icons clicky" onClick={() => loadHome(home.id)}>
               <img src={home.imgUrl} key={home.id} alt="home" />
             </div>
           );
