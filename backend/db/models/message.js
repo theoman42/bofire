@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Message extends Model {
     /**
@@ -10,17 +8,52 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Message.belongsTo(models.User, {
+        foreignKey: "userId",
+      });
+      Message.belongsTo(models.Room, {
+        foreignKey: "roomId",
+      });
+      // Message.belongsTo(models.UserUserDM, {
+      //   foreignKey: "dmId",
+      // });
     }
   }
-  Message.init({
-    userId: DataTypes.INTEGER,
-    roomId: DataTypes.INTEGER,
-    dmId: DataTypes.INTEGER,
-    messageBody: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Message',
-  });
+  Message.init(
+    {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
+      userId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+      },
+      roomId: {
+        type: DataTypes.INTEGER,
+      },
+      dmId: {
+        type: DataTypes.STRING,
+      },
+      messageBody: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
+    },
+    {
+      sequelize,
+      modelName: "Message",
+    }
+  );
   return Message;
 };

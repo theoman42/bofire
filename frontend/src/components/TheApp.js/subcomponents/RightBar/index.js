@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as sessionActions from "../../../../store/session";
 import "./RightBar.css";
+import MessageContent from "./MessageContent";
 
 function RightBar() {
   const user = useSelector((state) => state.session.user);
@@ -36,7 +37,10 @@ function RightBar() {
 
   return (
     <div className="right-bar-wrapper">
-      <div className="right-bar-profile-container"></div>
+      <div className="right-bar-profile-container">
+        <div className="right-bar-social-container"></div>
+        <MessageContent />
+      </div>
     </div>
   );
 }

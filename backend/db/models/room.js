@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "homeId",
         as: "rooms",
       });
+      Room.hasMany(models.Message, {
+        foreignKey: "roomId",
+        onDelete: "CASCADE",
+      });
     }
   }
   Room.init(

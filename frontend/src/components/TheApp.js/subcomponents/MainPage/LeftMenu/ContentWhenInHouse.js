@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import RoomSettingsModal from "./RoomSettingsModal";
 import AddRoomModal from "./AddRoomModal";
 import { enterRoom, leaveRoom } from "../../../../../store/session";
+import { getMessages } from "../../../../../store/messageState1";
 
 const ContentWhenInHouse = () => {
   const rooms = Object.values(useSelector((state) => state.rooms));
@@ -14,8 +15,12 @@ const ContentWhenInHouse = () => {
   const [isOwned, setIsOwned] = useState(false);
 
   const roomGateway = (isActive, homeId, roomId) => {
-    if (isActive) dispatch(leaveRoom(user.id));
-    else dispatch(enterRoom(user.id, homeId, roomId));
+    if (isActive) {
+      dispatch(leaveRoom(user.id));
+    } else {
+      dispatch(enterRoom(user.id, homeId, roomId));
+      dispatch(getMessages(roomId, "room"));
+    }
   };
 
   useEffect(() => {
