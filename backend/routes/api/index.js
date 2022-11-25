@@ -3,6 +3,7 @@ const sessionRouter = require("./session.js");
 const usersRouter = require("./users.js");
 const homesRouter = require("./home.js");
 const messagesRouter = require("./message.js");
+const anagramRouter = require("./anagram.js");
 
 router.post("/test", function (req, res) {
   res.json({ requestBody: req.body });
@@ -20,6 +21,8 @@ router.use("/users", usersRouter);
 router.use("/homes", homesRouter);
 
 router.use("/messages", messagesRouter);
+
+router.use("/anagram", anagramRouter);
 
 router.post("/test", (req, res) => {
   res.json({ requestBody: req.body });

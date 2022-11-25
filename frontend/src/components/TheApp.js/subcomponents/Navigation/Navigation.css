@@ -15,9 +15,14 @@
 }
 
 .navigation-owned-homes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border-bottom: thick double #4C8BF5;
 }
 
 .navigation-joined-homes {
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

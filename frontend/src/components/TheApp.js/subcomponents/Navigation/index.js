@@ -19,19 +19,16 @@ function Navigation() {
   return (
     <div className="navigation-left-bar-wrapper">
       <div className="navigation-button-container">
-        <div className="icons">
+        <div className="icons clicky" onClick={() => dispatch(goHome())}>
           <NavLink exact to="/">
-            <AiOutlineHome
-              className="clicky"
-              onClick={() => dispatch(goHome())}
-            />
+            <AiOutlineHome />
           </NavLink>
         </div>
         <div className="icons clicky">
           <GiThreeFriends />
         </div>
-        <div className="icons clicky">
-          <AiOutlineUser onClick={() => dispatch(goToProfile())} />
+        <div className="icons clicky" onClick={() => dispatch(goToProfile())}>
+          <AiOutlineUser />
         </div>
       </div>
       <UserOwnedHomes />

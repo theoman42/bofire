@@ -1,0 +1,78 @@
+
+
+.anagram-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  height: 300px;
+  width: 300px;
+  gap: 10px;
+}
+.anagram-additional-wrapper {
+  display: flex;
+}
+
+
+.left-side-game-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.right-side-game-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.score-board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid white;
+  height: 20px;
+  border-radius: 3px;
+  padding: 3px;
+}
+
+.score-board span {
+  color: white;
+}
+
+.anagram-current-words{
+
+}
+
+.anagram-letter-set {
+  display: flex;
+  gap: 5px;
+}
+.anagram-letter-set form{
+  display: flex;
+  gap: 5px;
+}
+
+.anagram-letter-set div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  border-radius: 5px;
+  border: 1px solid white;
+}
+.anagram-letter-set input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 30px;
+  width: 30px;
+  border-radius: 5px;
+  border: 1px solid white;
+}
+
+
+.anagram-letter-set svg {
+  color: white;
+}

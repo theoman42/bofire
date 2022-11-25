@@ -18,6 +18,7 @@ const ContentWhenInHouse = () => {
     if (isActive) {
       dispatch(leaveRoom(user.id));
     } else {
+      console.log(`${user.id}, ${homeId}, ${roomId}`);
       dispatch(enterRoom(user.id, homeId, roomId));
       dispatch(getMessages(roomId, "room"));
     }
@@ -37,6 +38,9 @@ const ContentWhenInHouse = () => {
       <div className="all-rooms-container">
         {rooms.map((room) => {
           let isActive = room.id === user.currentRoomId;
+          console.log(isActive);
+          console.log(room.id);
+          console.log(user.currentRoomId);
           return (
             <div
               className={`single-room-container${isActive ? "-active" : ""}`}

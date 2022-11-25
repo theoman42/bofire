@@ -8,10 +8,9 @@ const AddHomeModal = () => {
 
   return (
     <>
-      <AiOutlinePlusSquare
-        className="clicky"
-        onClick={() => setShowModal(true)}
-      ></AiOutlinePlusSquare>
+      <div className="icons clicky" onClick={() => setShowModal(true)}>
+        <AiOutlinePlusSquare />
+      </div>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <AddHomeModalForm onClose={() => setShowModal(false)} />

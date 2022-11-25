@@ -12,7 +12,7 @@ router.get("/room/:roomId", async (req, res) => {
     where: {
       roomId,
     },
-    order: [["createdAt", "DESC"]],
+    order: [["createdAt", "ASC"]],
     include: {
       model: User,
       attributes: ["username"],
@@ -55,7 +55,7 @@ router.get("/dm/:dmId", async (req, res) => {
     where: {
       dmId,
     },
-    order: [["createdAt", "DESC"]],
+    order: [["createdAt", "ASC"]],
     include: {
       model: User,
       attributes: ["username"],

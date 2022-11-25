@@ -6,6 +6,7 @@ import userPartHomesReducer from "./userPartHomes";
 import currentMenuContentReducer from "./currentMenuContent";
 import roomsReducer from "./room";
 import messageReducer1 from "./messageState1";
+import anagramReducer from "./anagram";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   currentMenuContent: currentMenuContentReducer,
   rooms: roomsReducer,
   messages1: messageReducer1,
+  anagram: anagramReducer,
 });
 let enhancer;
 

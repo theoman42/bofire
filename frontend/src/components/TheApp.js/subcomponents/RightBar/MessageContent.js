@@ -23,6 +23,26 @@ function MessageContent() {
 
   const updateText = (e) => setNewText(e.target.value);
 
+  const getTime = (msgTime) => {
+    const today = new Date();
+    const messageTime = new Date(msgTime);
+    let t = {};
+    let difference = today.getTime() - messageTime.getTime();
+    let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+    if (daysDifference) return `${daysDifference}d`;
+    difference -= daysDifference * 1000 * 60 * 60 * 24;
+    let hoursDifference = Math.floor(difference / 1000 / 60 / 60);
+    if (hoursDifference) return `${hoursDifference}h`;
+    difference -= hoursDifference * 1000 * 60 * 60;
+    let minutesDifference = Math.floor(difference / 1000 / 60);
+    if (minutesDifference) return `${minutesDifference}m`;
+    difference -= minutesDifference * 1000 * 60;
+    let secondsDifference = Math.floor(difference / 1000);
+    if (secondsDifference) return `${secondsDifference}s`;
+
+    return "just now";
+  };
+
   const submitOnEnter = (e) => {
     if (e.keyCode == 13 && e.shiftKey == false) {
       e.preventDefault();
@@ -54,7 +74,8 @@ function MessageContent() {
             return (
               <div className="single-message-styling">
                 <strong>{message.User.username}</strong>
-                <span>{message.messageBody}</span>
+                <span className="message-text">{message.messageBody}</span>
+                <div>{getTime(message.createdAt)}</div>
               </div>
             );
           })}

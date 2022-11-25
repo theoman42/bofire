@@ -134,11 +134,16 @@ router.put("/:userId/ownedHomes/:homeId/rooms/:roomId", async (req, res) => {
   let { userId, roomId, homeId } = req.params;
   userId = parseInt(userId);
   roomId = parseInt(roomId);
-  const access = await UserHomeJoins.findOne({
-    where: {
-      [Op.and]: [{ homeId, homeId }, { userId: userId }],
-    },
-  });
+
+  const owned = await Home.findByPk(homeId);
+  let access = owned.ownerId === userId ? true : false;
+  if (!access) {
+    access = await UserHomeJoins.findOne({
+      where: {
+        [Op.and]: [{ homeId, homeId }, { userId: userId }],
+      },
+    });
+  }
 
   const user = await User.findOne({
     where: {
@@ -146,13 +151,15 @@ router.put("/:userId/ownedHomes/:homeId/rooms/:roomId", async (req, res) => {
     },
   });
 
-  if (access && user) {
+  if ((access && user) || owned) {
     user.currentRoomId = roomId;
     await user.save();
     res.json({
       user,
     });
   }
+  let error = new Error("Something is wrong");
+  throw error;
 });
 
 // Leave Room

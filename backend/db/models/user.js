@@ -44,6 +44,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "ownerId",
         onDelete: "CASCADE",
       });
+      User.hasMany(models.Anagram, {
+        foreignKey: "userId",
+        onDelete: "CASCADE",
+      });
       User.belongsToMany(models.Home, {
         through: "UserHomeJoins",
         foreignKey: "userId",

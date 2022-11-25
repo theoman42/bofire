@@ -25,9 +25,7 @@ const UserOwnedHomes = () => {
   return (
     <>
       <div className="navigation-owned-homes">
-        <div className="icons">
-          <AddHomeModal />
-        </div>
+        <AddHomeModal />
         {userOwnedHomes?.map((home) => {
           return (
             <div className="icons clicky" onClick={() => loadHome(home.id)}>
