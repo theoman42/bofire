@@ -394,20 +394,9 @@ const Anagram = () => {
                 })}
               </div>
               <button onClick={() => endGameButton(user.id, anagram.id)}>
-                Reset
+                Reset and hello
               </button>
             </div>
-            {/* <div className="right-side-game-wrapper"> */}
-            {/* <div className="anagram-current-words">
-                {currentWordsArray.map((word) => {
-                  return (
-                    <div>
-                      <span>{word}</span>
-                    </div>
-                  );
-                })}
-              </div> */}
-            {/* </div> */}
           </div>
         </>
       ) : (

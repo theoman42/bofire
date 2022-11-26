@@ -148823,7 +148823,6 @@ router.delete("/:gameId/:userId", async (req, res) => {
   gameId = parseInt(gameId);
 
   const gameSession = await Anagram.findByPk(gameId);
-  console.log(gameSession);
 
   if (gameSession.userId === userId) {
     res.json("Game Reset");
