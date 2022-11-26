@@ -3,27 +3,10 @@ const express = require("express");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { User, Home, UserHomeJoins } = require("../../db/models");
 const { check } = require("express-validator");
-const { handleValidationErrors } = require("../../utils/validation");
+const { validateSignup, validateHome } = require("../../utils/validation");
 const { Op } = require("sequelize");
 
 const router = express.Router();
-
-const validateSignup = [
-  check("email")
-    .exists({ checkFalsy: true })
-    .isEmail()
-    .withMessage("Please provide a valid email."),
-  check("username")
-    .exists({ checkFalsy: true })
-    .isLength({ min: 4 })
-    .withMessage("Please provide a username with at least 4 characters."),
-  check("username").not().isEmail().withMessage("Username cannot be an email."),
-  check("password")
-    .exists({ checkFalsy: true })
-    .isLength({ min: 6 })
-    .withMessage("Password must be 6 characters or more."),
-  handleValidationErrors,
-];
 
 // Sign up
 router.post("/", validateSignup, async (req, res) => {
@@ -38,7 +21,7 @@ router.post("/", validateSignup, async (req, res) => {
 });
 
 // Add Home to User
-router.post("/:userId/ownedHomes", async (req, res) => {
+router.post("/:userId/ownedHomes", validateHome, async (req, res) => {
   let { userId } = req.params;
   let { homeName, imgUrl } = req.body;
   userId = parseInt(userId);
@@ -144,6 +127,14 @@ router.put("/:userId/ownedHomes/:homeId/rooms/:roomId", async (req, res) => {
       },
     });
   }
+  let permission = access || owned;
+  if (!permission) {
+    const err = new Error("Forbidden");
+    err.status = 403;
+    err.title = "Forbidden";
+    err.errors = ["Forbidden"];
+    return next(err);
+  }
 
   const user = await User.findOne({
     where: {
@@ -151,15 +142,14 @@ router.put("/:userId/ownedHomes/:homeId/rooms/:roomId", async (req, res) => {
     },
   });
 
-  if ((access && user) || owned) {
+  if (permission && user) {
     user.currentRoomId = roomId;
     await user.save();
-    res.json({
-      user,
-    });
   }
-  let error = new Error("Something is wrong");
-  throw error;
+
+  res.json({
+    user,
+  });
 });
 
 // Leave Room

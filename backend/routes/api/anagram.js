@@ -3,7 +3,6 @@ const { setTokenCookie, restoreUser } = require("../../utils/auth");
 const { Anagram } = require("../../db/models");
 const router = express.Router();
 const { check } = require("express-validator");
-const dictionaryTemp = ["a", "aa", "aaa", "aah"];
 const dictionary = [
   "aaa",
   "aah",
@@ -148769,7 +148768,12 @@ const scoreSystem = {
 router.post("/", async (req, res) => {
   let { userId, roomId } = req.body;
   //Create Function to Generate Word
-  let word = "CRADLE";
+
+  //Eventually add a variable for game length
+  let wordChoose = dictionary.filter((word) => word.length == 6);
+  let randomNumber = Math.floor(Math.random() * wordChoose.length);
+  let word = wordChoose[randomNumber];
+  word = word.toUpperCase();
 
   const newGame = await Anagram.create({
     userId,
@@ -148797,6 +148801,14 @@ router.put("/:gameId/:userId", async (req, res) => {
 
   const updateScore = await Anagram.findByPk(gameId);
 
+  if (userId != updateScore.userId) {
+    const err = new Error("Forbidden");
+    err.status = 403;
+    err.title = "Forbidden";
+    err.errors = ["Forbidden"];
+    return next(err);
+  }
+
   if (updateScore && dictionary.includes(word.toLowerCase())) {
     updateScore.score = updateScore.score + scoreCalculator(word);
     updateScore.save();
@@ -148811,13 +148823,17 @@ router.delete("/:gameId/:userId", async (req, res) => {
   gameId = parseInt(gameId);
 
   const gameSession = await Anagram.findByPk(gameId);
+  console.log(gameSession);
 
   if (gameSession.userId === userId) {
     res.json("Game Reset");
+  } else {
+    const err = new Error("Forbidden");
+    err.status = 403;
+    err.title = "Forbidden";
+    err.errors = ["Forbidden"];
+    return next(err);
   }
-
-  let err = new Error("We have an issue with ending the game");
-  throw err;
 });
 
 module.exports = router;

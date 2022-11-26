@@ -5,6 +5,7 @@ import RoomSettingsModal from "./RoomSettingsModal";
 import AddRoomModal from "./AddRoomModal";
 import { enterRoom, leaveRoom } from "../../../../../store/session";
 import { getMessages } from "../../../../../store/messageState1";
+import { clearMessages } from "../../../../../store/messageState1";
 
 const ContentWhenInHouse = () => {
   const rooms = Object.values(useSelector((state) => state.rooms));
@@ -14,13 +15,13 @@ const ContentWhenInHouse = () => {
 
   const [isOwned, setIsOwned] = useState(false);
 
-  const roomGateway = (isActive, homeId, roomId) => {
+  const roomGateway = (isActive, homeId, roomId, roomName) => {
     if (isActive) {
       dispatch(leaveRoom(user.id));
+      dispatch(clearMessages());
     } else {
-      console.log(`${user.id}, ${homeId}, ${roomId}`);
       dispatch(enterRoom(user.id, homeId, roomId));
-      dispatch(getMessages(roomId, "room"));
+      dispatch(getMessages(roomId, "room", roomName));
     }
   };
 
@@ -38,13 +39,12 @@ const ContentWhenInHouse = () => {
       <div className="all-rooms-container">
         {rooms.map((room) => {
           let isActive = room.id === user.currentRoomId;
-          console.log(isActive);
-          console.log(room.id);
-          console.log(user.currentRoomId);
           return (
             <div
               className={`single-room-container${isActive ? "-active" : ""}`}
-              onClick={() => roomGateway(isActive, room.homeId, room.id)}
+              onClick={() =>
+                roomGateway(isActive, room.homeId, room.id, room.roomName)
+              }
             >
               <div>{room.roomName}</div>
               {isOwned && <RoomSettingsModal roomId={room.id} />}

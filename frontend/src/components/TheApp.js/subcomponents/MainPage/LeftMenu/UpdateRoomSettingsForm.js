@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { updateRoom, deleteRoom } from "../../../../../store/room";
+import { leaveRoom } from "../../../../../store/session";
+import { clearMessages } from "../../../../../store/messageState1";
 
 const UpdateRoomSettingsForm = ({ roomId, onClose }) => {
   const dispatch = useDispatch();
@@ -45,6 +47,8 @@ const UpdateRoomSettingsForm = ({ roomId, onClose }) => {
   const handleDelete = async (e) => {
     e.preventDefault();
     dispatch(deleteRoom(user.id, homeId, roomId));
+    dispatch(leaveRoom(user.id));
+    dispatch(clearMessages());
     onClose();
   };
 

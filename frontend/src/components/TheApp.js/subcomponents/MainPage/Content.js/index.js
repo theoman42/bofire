@@ -10,9 +10,10 @@ const Content = () => {
 
   return (
     <div className="content-wrapper">
-      <div>
+      <div className="main-top-content-wrapper">
         <Anagram />
       </div>
+      <div className="main-lower-content-wrapper"></div>
     </div>
   );
 };

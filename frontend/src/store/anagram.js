@@ -61,7 +61,7 @@ export const endGame = (userId, gameId) => async (dispatch) => {
   const response = await csrfFetch(`api/anagram/${gameId}/${userId}`, {
     method: "DELETE",
   });
-
+  //Make this a put so the game query doesn't get comletely deleted
   if (response.ok) {
     const data = await response.json();
     dispatch(endGameSession());

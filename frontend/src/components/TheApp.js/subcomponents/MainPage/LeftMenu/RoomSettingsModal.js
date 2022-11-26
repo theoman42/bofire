@@ -18,7 +18,7 @@ const RoomSettingsModal = ({ roomId }) => {
   return (
     <>
       <RiSettings2Line
-        className="clicky"
+        className="clicky bring-to-front"
         onClick={() => setShowModal(true)}
       ></RiSettings2Line>
       {showModal && (

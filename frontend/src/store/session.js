@@ -57,6 +57,9 @@ export const enterRoom = (userId, homeId, roomId) => async (dispatch) => {
     `/api/users/${userId}/ownedHomes/${homeId}/rooms/${roomId}`,
     {
       method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
     }
   );
   if (response.ok) {

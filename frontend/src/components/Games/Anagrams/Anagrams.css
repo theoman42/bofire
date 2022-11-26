@@ -1,5 +1,3 @@
-
-
 .anagram-wrapper {
   display: flex;
   flex-direction: column;
@@ -7,22 +5,33 @@
   align-items: center;
   padding: 30px;
   height: 300px;
-  width: 300px;
+  width: 500px;
+  border: 1px solid salmon;
+  border-radius: 5px;
   gap: 10px;
 }
 .anagram-additional-wrapper {
   display: flex;
+  justify-content: center;
+  width: 100%;
 }
-
 
 .left-side-game-wrapper {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.left-side-game-wrapper button {
+  margin-top: 20px;
 }
 
 .right-side-game-wrapper {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%
 }
 
 .score-board {
@@ -30,9 +39,11 @@
   justify-content: center;
   align-items: center;
   border: 1px solid white;
-  height: 20px;
+  height: 50px;
+  width: 60%;
   border-radius: 3px;
   padding: 3px;
+  margin-bottom: 20px;
 }
 
 .score-board span {
@@ -45,7 +56,9 @@
 
 .anagram-letter-set {
   display: flex;
+  justify-content: center;
   gap: 5px;
+  padding: 5px;
 }
 .anagram-letter-set form{
   display: flex;

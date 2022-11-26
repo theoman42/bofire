@@ -4,6 +4,7 @@ const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { Home, Room } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
+const { validateRoom } = require("../../utils/validation");
 
 const router = express.Router();
 
@@ -15,6 +16,15 @@ router.get("/:homeId", async (req, res) => {
     where: { id: homeId },
     include: "rooms",
   });
+
+  if (!oneHome) {
+    const err = new Error("No Home Found");
+    err.status = 404;
+    err.title = "No Home Found";
+    err.errors = ["No Home Found"];
+    return next(err);
+  }
+
   return res.json({
     home: oneHome,
   });
@@ -32,10 +42,20 @@ router.delete("/:homeId/rooms/:roomId/:userId", async (req, res) => {
     },
   });
 
+  if (!home) {
+    const err = new Error("No Home Found");
+    err.status = 404;
+    err.title = "No Home Found";
+    err.errors = ["No Home Found"];
+    return next(err);
+  }
+
   if (userId !== home.ownerId) {
     const err = new Error("Forbidden");
-    err.status = 404;
-    throw err;
+    err.status = 403;
+    err.title = "Forbidden";
+    err.errors = ["Forbidden"];
+    return next(err);
   }
 
   const deleted = await Room.destroy({
@@ -56,12 +76,21 @@ router.get("/:homeId/rooms", async (req, res) => {
   const allRooms = await Room.findAll({
     where: { homeId },
   });
+
+  if (!allRooms) {
+    const err = new Error("No Room Found");
+    err.status = 404;
+    err.title = "No Room Found";
+    err.errors = ["No Room Found"];
+    return next(err);
+  }
+
   return res.json({
     allRooms,
   });
 });
 
-router.post("/:homeId/rooms", async (req, res) => {
+router.post("/:homeId/rooms", validateRoom, async (req, res) => {
   let { homeId } = req.params;
   let { roomName, caption, userId } = req.body;
   userId = parseInt(userId);
@@ -74,8 +103,10 @@ router.post("/:homeId/rooms", async (req, res) => {
 
   if (userId !== home.ownerId) {
     const err = new Error("Forbidden");
-    err.status = 404;
-    throw err;
+    err.status = 403;
+    err.title = "Forbidden";
+    err.errors = ["Forbidden"];
+    return next(err);
   }
 
   const newRoom = await Room.create({
@@ -95,7 +126,7 @@ router.post("/:homeId/rooms", async (req, res) => {
   }
 });
 
-router.put("/:homeId/rooms/:roomId", async (req, res) => {
+router.put("/:homeId/rooms/:roomId", validateRoom, async (req, res) => {
   let { homeId, roomId } = req.params;
   let { roomName, caption, userId } = req.body;
   userId = parseInt(userId);
@@ -110,8 +141,10 @@ router.put("/:homeId/rooms/:roomId", async (req, res) => {
 
   if (userId !== home.ownerId) {
     const err = new Error("Forbidden");
-    err.status = 404;
-    throw err;
+    err.status = 403;
+    err.title = "Forbidden";
+    err.errors = ["Forbidden"];
+    return next(err);
   }
 
   const room = await Room.findOne({

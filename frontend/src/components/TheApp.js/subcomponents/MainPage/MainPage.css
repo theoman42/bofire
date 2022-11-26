@@ -24,3 +24,11 @@
   height: 100%;
   width: 68vw;
 }
+
+.main-top-content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+  width: 100%;
+}

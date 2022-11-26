@@ -3,20 +3,9 @@ const { setTokenCookie, restoreUser } = require("../../utils/auth");
 const { User, UserHomeJoins, Home } = require("../../db/models");
 const router = express.Router();
 const { check } = require("express-validator");
-const { handleValidationErrors } = require("../../utils/validation");
+const { validateLogin } = require("../../utils/validation");
 
-const validateLogin = [
-  check("username")
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage("Please provide a valid username"),
-  check("password")
-    .exists({ checkFalsy: true })
-    .withMessage("Please provide a password."),
-  handleValidationErrors,
-];
-
-router.post("/", async (req, res, next) => {
+router.post("/", validateLogin, async (req, res, next) => {
   const { username, password } = req.body;
 
   const user = await User.login({ username, password });

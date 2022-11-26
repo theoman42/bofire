@@ -62,7 +62,6 @@ export const addRoom = (homeId, payload) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    console.log(data);
     dispatch(addOneRoom(data.newRoom));
     return data;
   }
@@ -79,7 +78,6 @@ export const updateRoom = (homeId, roomId, payload) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    console.log(data);
     dispatch(updateOneRoom(data.updatedRoom));
     return data;
   }

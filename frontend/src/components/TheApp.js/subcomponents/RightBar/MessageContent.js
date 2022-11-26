@@ -1,5 +1,5 @@
 // frontend/src/components/Navigation/index.js
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { sendMessage } from "../../../../store/messageState1";
@@ -13,12 +13,16 @@ function MessageContent() {
   const [newText, setNewText] = useState("");
   const [type, setType] = useState("");
   const [tempId, setTempId] = useState("");
-  const [messagesLoaded, setMessagesLoaded] = useState(false);
+
+  const autoScroll = useRef(null);
 
   useEffect(() => {
     setType(messages.type);
     setTempId(messages.id);
-    setMessagesLoaded(JSON.stringify(messages) !== "{}");
+    autoScroll.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+    });
   }, [messages]);
 
   const updateText = (e) => setNewText(e.target.value);
@@ -59,35 +63,41 @@ function MessageContent() {
     <div className="right-bar-messaging-container">
       <div className="right-bar-messaging-tabs-container">
         <div className={`right-bar-tab-1 ${active === 1 ? "active-m" : ""}`}>
-          Tab 1
-        </div>
-        <div className={`right-bar-tab-2 ${active === 2 ? "active-m" : ""}`}>
-          Tab 2
-        </div>
-        <div className={`right-bar-tab-3 ${active === 3 ? "active-m" : ""}`}>
-          Tab 3
+          {JSON.stringify(messages) !== "{}"
+            ? messages.roomName
+            : "Join a Room!"}
         </div>
       </div>
       <div className="messages-wrapper">
-        {messagesLoaded &&
-          messages?.messages.map((message) => {
-            return (
-              <div className="single-message-styling">
-                <strong>{message.User.username}</strong>
-                <span className="message-text">{message.messageBody}</span>
-                <div>{getTime(message.createdAt)}</div>
-              </div>
-            );
-          })}
-      </div>
-      <div className="message-input-container">
-        <textarea
-          placeholder="message..."
-          required
-          value={newText}
-          onChange={updateText}
-          onKeyDown={submitOnEnter}
-        />
+        {JSON.stringify(messages) !== "{}" && (
+          <>
+            <div className="actual-messages-container">
+              {messages?.messages.map((message) => {
+                return (
+                  <div className="single-message-styling">
+                    <strong>{message.User.username}</strong>
+                    <span className="message-text">{message.messageBody}</span>
+                    <div>{getTime(message.createdAt)}</div>
+                  </div>
+                );
+              })}
+              <div
+                ref={autoScroll}
+                className="message-input-div-auto-scroll-bottom"
+              ></div>
+            </div>
+            <div className="message-input-container">
+              <textarea
+                placeholder="message..."
+                required
+                value={newText}
+                onChange={updateText}
+                onKeyDown={submitOnEnter}
+                rows={2}
+              />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

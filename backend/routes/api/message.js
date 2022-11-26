@@ -1,12 +1,14 @@
 const express = require("express");
 const { setTokenCookie, restoreUser } = require("../../utils/auth");
-const { Message, User } = require("../../db/models");
+const { Message, User, Room } = require("../../db/models");
 const router = express.Router();
 const { check } = require("express-validator");
 
 router.get("/room/:roomId", async (req, res) => {
   let { roomId } = req.params;
   roomId = parseInt(roomId);
+
+  const room = await Room.findByPk(roomId);
 
   const messages = await Message.findAll({
     where: {

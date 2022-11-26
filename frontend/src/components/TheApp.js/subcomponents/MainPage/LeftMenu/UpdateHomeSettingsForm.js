@@ -6,6 +6,8 @@ import { getOneHomeContent } from "../../../../../store/currentMenuContent";
 import { deleteHome } from "../../../../../store/userOwnedHomes";
 import { goHome } from "../../../../../store/currentMenuContent";
 import { useEffect } from "react";
+import { leaveRoom } from "../../../../../store/session";
+import { clearMessages } from "../../../../../store/messageState1";
 
 const UpdateHomeSettingsForm = ({ onClose }) => {
   const user = useSelector((state) => state.session.user);
@@ -33,14 +35,14 @@ const UpdateHomeSettingsForm = ({ onClose }) => {
       imgUrl,
     };
 
-    await dispatch(updateHome(payload, user.id, menuContent.home.id))
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
-      })
-      .then(async (res) => {
-        dispatch(getOneHomeContent(res.updatedHome.id));
-      });
+    let updatedHome = await dispatch(
+      updateHome(payload, user.id, menuContent.home.id)
+    ).catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) setErrors(data.errors);
+    });
+
+    if (updatedHome) dispatch(getOneHomeContent(updatedHome.id));
 
     onClose();
   };
@@ -49,6 +51,8 @@ const UpdateHomeSettingsForm = ({ onClose }) => {
     e.preventDefault();
     dispatch(deleteHome(user.id, menuContent.home.id));
     dispatch(goHome());
+    dispatch(leaveRoom(user.id));
+    dispatch(clearMessages());
     onClose();
   };
 

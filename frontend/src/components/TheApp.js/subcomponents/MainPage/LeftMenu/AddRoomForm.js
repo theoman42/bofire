@@ -27,16 +27,18 @@ const AddRoomForm = ({ onClose }) => {
       userId: user.id,
     };
 
-    console.log(homeId);
-
-    await dispatch(addRoom(homeId, payload)).catch(async (res) => {
-      const data = res;
-      if (data && data.errors) setErrors(data.errors);
-    });
+    let newRoom = await dispatch(addRoom(homeId, payload)).catch(
+      async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      }
+    );
     // .then(async (res) => {
     //   dispatch(getOneHomeContent(res.updatedHome.id));
     // });
-    onClose();
+    if (newRoom) {
+      onClose();
+    }
   };
 
   return (

@@ -100,7 +100,7 @@ const Anagram = () => {
   const anagram = useSelector((state) => state.anagram);
   const user = useSelector((state) => state.session.user);
 
-  const [inSession, setInSession] = useState(false);
+  // const [inSession, setInSession] = useState(false);
   const [gameWord, setGameWord] = useState("");
   const [input0, setInput0] = useState("");
   const [input1, setInput1] = useState("");
@@ -123,15 +123,30 @@ const Anagram = () => {
 
   const [currentWordsArray, setCurrentWordsArray] = useState([]);
   const currentLettersLeft = useRef();
+  const inSession = useRef(false);
+
+  // const reRender = useRef(1);
+
+  // useEffect;
 
   let currentWord = `${input0}${input1}${input2}${input3}${input4}${input5}${input6}${input7}`;
 
   useEffect(() => {
-    currentLettersLeft.current = getDifference(
-      anagram.word.split(""),
-      currentWord?.split("")
-    );
-    console.log(currentLettersLeft.current);
+    if (JSON.stringify(anagram) !== "{}") {
+      setGameWord(anagram.word.split(""));
+      inSession.current = true;
+    } else {
+      inSession.current = false;
+    }
+  }, [anagram]);
+
+  useEffect(() => {
+    if (JSON.stringify(anagram) !== "{}") {
+      currentLettersLeft.current = getDifference(
+        anagram.word.split(""),
+        currentWord?.split("")
+      );
+    }
   });
 
   const getDifference = (a, b) => {
@@ -142,16 +157,14 @@ const Anagram = () => {
 
   const startGame = async () => {
     let payload = { userId: user.id, roomId: null };
-    await dispatch(loadGame(payload)).then((res) => {
-      setInSession(true);
-    });
+    await dispatch(loadGame(payload));
   };
 
-  const endGameButton = async () => {
-    const data = await dispatch(endGame(user.id, anagram.id));
+  const endGameButton = async (userId, anagramId) => {
+    const data = await dispatch(endGame(userId, anagramId));
     if (data) {
       setCurrentWordsArray([]);
-      setInSession(false);
+      inSession.current = false;
       clearAnagrams();
     }
   };
@@ -290,10 +303,6 @@ const Anagram = () => {
   };
   const blinkRed = () => {};
 
-  useEffect(() => {
-    if (JSON.stringify(anagram) !== "{}") setGameWord(anagram.word.split(""));
-  }, [anagram]);
-
   let gameFunc = {
     0: setInput0,
     1: setInput1,
@@ -352,10 +361,13 @@ const Anagram = () => {
 
   return (
     <div className="anagram-wrapper">
-      {inSession ? (
+      {inSession.current ? (
         <>
           <div className="anagram-additional-wrapper">
             <div className="left-side-game-wrapper">
+              <div className="score-board">
+                <span>{anagram.score}</span>
+              </div>
               <div className="anagram-letter-set">
                 <form onKeyDown={submitWord}>
                   {gameWord.map((letter, i) => {
@@ -381,13 +393,12 @@ const Anagram = () => {
                   return <div>{returnLetter(letter)}</div>;
                 })}
               </div>
-              <button onClick={endGameButton}>Reset</button>
+              <button onClick={() => endGameButton(user.id, anagram.id)}>
+                Reset
+              </button>
             </div>
-            <div className="right-side-game-wrapper">
-              <div className="score-board">
-                <span>{anagram.score}</span>
-              </div>
-              <div className="anagram-current-words">
+            {/* <div className="right-side-game-wrapper"> */}
+            {/* <div className="anagram-current-words">
                 {currentWordsArray.map((word) => {
                   return (
                     <div>
@@ -395,8 +406,8 @@ const Anagram = () => {
                     </div>
                   );
                 })}
-              </div>
-            </div>
+              </div> */}
+            {/* </div> */}
           </div>
         </>
       ) : (
