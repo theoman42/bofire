@@ -7,7 +7,7 @@ const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 const routes = require("./routes");
 const { ValidationError } = require("sequelize");
-
+const { v4: uuidv4 } = require("uuid");
 const { environment } = require("./config");
 const isProduction = environment === "production";
 
@@ -23,6 +23,10 @@ if (!isProduction) {
   // enable cors only in development
   app.use(cors());
 }
+
+//--------Video---------------
+
+//
 
 // helmet helps set a variety of headers to better secure your app
 app.use(

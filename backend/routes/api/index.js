@@ -15,17 +15,9 @@ const { use } = require("./session.js");
 router.use(restoreUser);
 
 router.use("/session", sessionRouter);
-
 router.use("/users", usersRouter);
-
 router.use("/homes", homesRouter);
-
 router.use("/messages", messagesRouter);
-
 router.use("/anagram", anagramRouter);
-
-router.post("/test", (req, res) => {
-  res.json({ requestBody: req.body });
-});
 
 module.exports = router;
