@@ -1,7 +1,7 @@
 import { csrfFetch } from "./csrf";
 
-const GET_HOME_CONTENT = "menu/getHomeContent";
-const CHANGE_TYPE = "menu/changeType";
+const GET_HOME_CONTENT = "main/getHomeContent";
+const CHANGE_TYPE = "main/changeType";
 
 export const getHomeContent = (data) => {
   return {
@@ -51,7 +51,7 @@ export const goHome = () => async (dispatch) => {
   dispatch(goToHome({ type: "homePage" }));
 };
 
-const currentMenuContentReducer = (state = {}, action) => {
+const currentMainContentReducer = (state = {}, action) => {
   let newState;
   switch (action.type) {
     case GET_HOME_CONTENT:
@@ -64,4 +64,4 @@ const currentMenuContentReducer = (state = {}, action) => {
   }
 };
 
-export default currentMenuContentReducer;
+export default currentMainContentReducer;

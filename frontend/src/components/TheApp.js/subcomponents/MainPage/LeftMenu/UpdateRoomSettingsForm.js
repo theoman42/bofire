@@ -53,33 +53,39 @@ const UpdateRoomSettingsForm = ({ roomId, onClose }) => {
   };
 
   return (
-    <div className="modal-form-wrapper">
-      <button onClick={handleDelete}>Delete</button>
+    <>
       <form className="modal-form-container" onSubmit={handleSubmit}>
-        <ul>
+        <div>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
-        </ul>
-        <input
-          type="text"
-          placeholder="Room Name"
-          required
-          value={roomName}
-          onChange={updateRoomName}
-        />
-        <input
-          type="text"
-          placeholder="What's your room for??"
-          required
-          value={caption}
-          onChange={updateCaption}
-        />
-        <button className="same-button" type="submit">
-          Submit Form
-        </button>
+        </div>
+        <div className="text-input-container">
+          <input
+            type="text"
+            placeholder="Room Name"
+            required
+            value={roomName}
+            onChange={updateRoomName}
+          />
+          <input
+            type="text"
+            placeholder="What's your room for??"
+            required
+            value={caption}
+            onChange={updateCaption}
+          />
+        </div>
+        <div>
+          <button className="delete-button" onClick={handleDelete}>
+            Delete
+          </button>
+          <button className="same-button" type="submit">
+            Submit
+          </button>
+        </div>
       </form>
-    </div>
+    </>
   );
 };
 

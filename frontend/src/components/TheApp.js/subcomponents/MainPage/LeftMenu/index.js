@@ -26,6 +26,10 @@ const LeftMenu = () => {
         setTitle(`${user.username}`);
         setShowSettings(false);
         break;
+      case "explorePage":
+        setTitle("Find Friends");
+        setShowSettings(false);
+        break;
       default:
         setTitle("Home");
         setShowSettings(true);

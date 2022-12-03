@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ContentWhenInHouse from "./ContentWhenInHouse";
 import ProfileSettings from "./ProfileSettings";
+import ExploreLeftHandContent from "./ExploreLeftHandContent";
 
 const LeftMenuContent = () => {
   const [contentForLeftMenu, setContentForLeftMenu] = useState("");
@@ -17,6 +18,9 @@ const LeftMenuContent = () => {
         break;
       case "profilePage":
         setContentForLeftMenu(<ProfileSettings />);
+        break;
+      case "explorePage":
+        setContentForLeftMenu(<ExploreLeftHandContent />);
         break;
       default:
         setContentForLeftMenu(<div>This is a home</div>);

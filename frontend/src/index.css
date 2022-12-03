@@ -9,10 +9,14 @@ a {
   color: black;
 }
 
+.delete-button {
+  background-color: rgb(230, 0, 0);
+}
+
 button {
-  background-color: #4C8BF5;
-  border: 1px outset rgba(255, 255, 255, 0.5) ;
-  padding: 6px;
+  background-color: #6e51e3;
+  border: 1px rgba(255, 255, 255, 0.5) ;
+  padding: 10px 20px;
   border-radius: 4px;
   color: white;
   cursor: pointer;
@@ -28,34 +32,46 @@ button:hover {
 }
 
 
-/* Form Styling */
-.form-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-}
-
-.form-container {
-  display: flex;
-  flex-direction: column;
-}
-
 /* Icon Styling */
 
 .icons {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid;
+
   border-radius: 100%;
   height: 40px;
   width: 40px;
   transition: 0.3s;
   background-color: #424549;
+  margin: 6px 0px;
+}
+
+.icons-active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  transition: 0.3s;
   margin: 4px 0px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 3px;
+}
+
+.icons-active svg {
+  height: 20px;
+  width: 20px;
+  color: black;
+}
+
+.icons-active img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  border-radius: 100%;
+  background-color: transparent;
 }
 
 .icons:hover {
@@ -80,4 +96,9 @@ button:hover {
   width: 100%;
   border-radius: 100%;
   background-color: transparent;
+}
+
+.upload-photo-icon {
+  height: 20%;
+  width: 20%;
 }

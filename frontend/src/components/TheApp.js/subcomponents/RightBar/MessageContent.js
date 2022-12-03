@@ -8,11 +8,13 @@ import "./RightBar.css";
 function MessageContent() {
   const user = useSelector((state) => state.session.user);
   const messages = useSelector((state) => state.messages1);
+  const rooms = useSelector((state) => state.rooms);
   const dispatch = useDispatch();
   const [active, setActive] = useState(1);
   const [newText, setNewText] = useState("");
   const [type, setType] = useState("");
   const [tempId, setTempId] = useState("");
+  const [currentRoomName, setRoomName] = useState("");
 
   const autoScroll = useRef(null);
 
@@ -24,6 +26,15 @@ function MessageContent() {
       block: "nearest",
     });
   }, [messages]);
+
+  useEffect(() => {
+    console.log("userUpdated");
+    if (user.currentRoomId) {
+      setRoomName(rooms[user.currentRoomId].roomName);
+    } else {
+      setRoomName("");
+    }
+  }, [user]);
 
   const updateText = (e) => setNewText(e.target.value);
 
@@ -63,9 +74,7 @@ function MessageContent() {
     <div className="right-bar-messaging-container">
       <div className="right-bar-messaging-tabs-container">
         <div className={`right-bar-tab-1 ${active === 1 ? "active-m" : ""}`}>
-          {JSON.stringify(messages) !== "{}"
-            ? messages.roomName
-            : "Join a Room!"}
+          {JSON.stringify(messages) !== "{}" ? currentRoomName : "Join a Room!"}
         </div>
       </div>
       <div className="messages-wrapper">

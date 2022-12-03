@@ -27,52 +27,43 @@ const AddRoomForm = ({ onClose }) => {
       userId: user.id,
     };
 
-    let newRoom = await dispatch(addRoom(homeId, payload)).catch(
-      async (res) => {
-        const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
-      }
-    );
+    await dispatch(addRoom(homeId, payload)).catch(async (res) => {
+      const data = res;
+      if (data && data.errors) setErrors(data.errors);
+    });
     // .then(async (res) => {
     //   dispatch(getOneHomeContent(res.updatedHome.id));
     // });
-    if (newRoom) {
-      onClose();
-    }
+    onClose();
   };
 
   return (
-    <>
+    <div className="modal-form-wrapper">
       <form className="modal-form-container" onSubmit={handleSubmit}>
-        <div className="modal-header-div">
-          <strong>Create a Room</strong>
-        </div>
-        <div>
+        <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
-        </div>
-        <div className="text-input-container">
-          <input
-            type="text"
-            placeholder="Room Name"
-            required
-            value={roomName}
-            onChange={updateRoomName}
-          />
-          <input
-            type="text"
-            placeholder="What's your room for??"
-            required
-            value={caption}
-            onChange={updateCaption}
-          />
-        </div>
+        </ul>
+        <input
+          type="text"
+          placeholder="Room Name"
+          required
+          value={roomName}
+          onChange={updateRoomName}
+        />
+        <input
+          type="text"
+          placeholder="What's your room for??"
+          required
+          value={caption}
+          onChange={updateCaption}
+        />
         <button className="same-button" type="submit">
-          Submit
+          Submit Form
         </button>
       </form>
-    </>
+    </div>
   );
 };
 

@@ -8,6 +8,7 @@ import { getRooms } from "../../../../store/room";
 const UserPartHomes = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+  const menu = useSelector((state) => state.currentMenuContent);
 
   useEffect(() => {
     dispatch(getUserPartHomes(user.id));
@@ -27,7 +28,15 @@ const UserPartHomes = () => {
       <div className="navigation-joined-homes">
         {userPartHomes?.map((home) => {
           return (
-            <div className="icons clicky" onClick={() => loadHome(home.id)}>
+            <div
+              key={home.id}
+              className={`icons${
+                menu.type === "singleHome" && menu.home.id === home.id
+                  ? "-active"
+                  : ""
+              } clicky`}
+              onClick={() => loadHome(home.id)}
+            >
               <img src={home.imgUrl} key={home.id} alt="home" />
             </div>
           );

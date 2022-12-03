@@ -8,6 +8,7 @@ import { goHome } from "../../../../../store/currentMenuContent";
 import { useEffect } from "react";
 import { leaveRoom } from "../../../../../store/session";
 import { clearMessages } from "../../../../../store/messageState1";
+import { HiOutlineUpload } from "react-icons/hi";
 
 const UpdateHomeSettingsForm = ({ onClose }) => {
   const user = useSelector((state) => state.session.user);
@@ -16,35 +17,47 @@ const UpdateHomeSettingsForm = ({ onClose }) => {
   const dispatch = useDispatch();
 
   const [homeName, setHomeName] = useState("");
-  const [imgUrl, setImageUrl] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [image, setImage] = useState(null);
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
     setHomeName(menuContent.home.homeName);
-    setImageUrl(menuContent.home.imgUrl);
+    setImage(menuContent.home.imgUrl);
   }, [menuContent]);
 
   const updateHomeName = (e) => setHomeName(e.target.value);
-  const updateimgUrl = (e) => setImageUrl(e.target.value);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const payload = {
       homeName,
-      imgUrl,
+      image: imageFile,
     };
 
-    let updatedHome = await dispatch(
-      updateHome(payload, user.id, menuContent.home.id)
-    ).catch(async (res) => {
-      const data = await res.json();
-      if (data && data.errors) setErrors(data.errors);
-    });
+    await dispatch(updateHome(payload, user.id, menuContent.home.id)).then(
+      (res) => {
+        dispatch(getOneHomeContent(res.id));
+      }
+    );
+    // .catch(async (res) => {
+    //   const data = await res;
+    //   if (data && data.errors) setErrors(data.errors);
+    // });
 
-    if (updatedHome) dispatch(getOneHomeContent(updatedHome.id));
+    // if (updatedHome) {
+    // }
 
     onClose();
+  };
+
+  const updateFile = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setImage(URL.createObjectURL(file));
+    }
   };
 
   const handleDelete = async (e) => {
@@ -57,33 +70,45 @@ const UpdateHomeSettingsForm = ({ onClose }) => {
   };
 
   return (
-    <div className="modal-form-wrapper">
-      <button onClick={handleDelete}>Delete</button>
+    <>
       <form className="modal-form-container" onSubmit={handleSubmit}>
-        <ul>
+        <input
+          id="modal-file-input"
+          type="file"
+          onChange={updateFile}
+          accept="image/*"
+        />
+        <label htmlFor="modal-file-input">
+          {image ? (
+            <img src={image} alt="Temporary Profile Picture" />
+          ) : (
+            <HiOutlineUpload />
+          )}
+        </label>
+        <div>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
-        </ul>
-        <input
-          type="text"
-          placeholder="Name of Home"
-          required
-          value={homeName}
-          onChange={updateHomeName}
-        />
-        <input
-          type="text"
-          placeholder="Image URL"
-          required
-          value={imgUrl}
-          onChange={updateimgUrl}
-        />
-        <button className="same-button" type="submit">
-          Submit Form
-        </button>
+        </div>
+        <div className="text-input-container">
+          <input
+            type="text"
+            placeholder="Name of Home"
+            required
+            value={homeName}
+            onChange={updateHomeName}
+          />
+        </div>
+        <div>
+          <button className="delete-button" onClick={handleDelete}>
+            Delete
+          </button>
+          <button className="same-button" type="submit">
+            Submit
+          </button>
+        </div>
       </form>
-    </div>
+    </>
   );
 };
 

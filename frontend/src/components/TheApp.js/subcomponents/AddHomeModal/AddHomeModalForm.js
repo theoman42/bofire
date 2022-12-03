@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom";
 import { addHome } from "../../../../store/userOwnedHomes";
 import { getHomeContent } from "../../../../store/currentMenuContent";
+import campfireImage from "../../../../stuff/campfire.jpg";
+import { HiOutlineUpload } from "react-icons/hi";
 
 const AddHomeModalForm = (props) => {
   const dispatch = useDispatch();
@@ -10,18 +12,25 @@ const AddHomeModalForm = (props) => {
   const user = useSelector((state) => state.session.user);
 
   const [homeName, setHomeName] = useState("");
-  const [imgUrl, setImageUrl] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [image, setImage] = useState(null);
   const [errors, setErrors] = useState([]);
 
   const updateHomeName = (e) => setHomeName(e.target.value);
-  const updateimgUrl = (e) => setImageUrl(e.target.value);
 
+  const updateFile = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setImage(URL.createObjectURL(file));
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const payload = {
       homeName,
-      imgUrl,
+      image: imageFile,
     };
 
     let newHome = await dispatch(addHome(payload, user.id)).catch(
@@ -42,32 +51,40 @@ const AddHomeModalForm = (props) => {
   };
 
   return (
-    <div className="modal-form-wrapper">
+    <>
       <form className="modal-form-container" onSubmit={handleSubmit}>
-        <ul>
+        <input
+          id="modal-file-input"
+          type="file"
+          onChange={updateFile}
+          accept="image/*"
+        />
+        <label htmlFor="modal-file-input">
+          {image ? (
+            <img src={image} alt="Temporary Profile Picture" />
+          ) : (
+            <HiOutlineUpload className="upload-photo-icon" />
+          )}
+        </label>
+        <div>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
-        </ul>
-        <input
-          type="text"
-          placeholder="Name of Home"
-          required
-          value={homeName}
-          onChange={updateHomeName}
-        />
-        <input
-          type="text"
-          placeholder="Image URL"
-          required
-          value={imgUrl}
-          onChange={updateimgUrl}
-        />
+        </div>
+        <div className="text-input-container">
+          <input
+            type="text"
+            placeholder="Name of Home"
+            required
+            value={homeName}
+            onChange={updateHomeName}
+          />
+        </div>
         <button className="same-button" type="submit">
           Submit Form
         </button>
       </form>
-    </div>
+    </>
   );
 };
 

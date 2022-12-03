@@ -394,7 +394,7 @@ const Anagram = () => {
                 })}
               </div>
               <button onClick={() => endGameButton(user.id, anagram.id)}>
-                Reset and hello
+                Reset
               </button>
             </div>
           </div>

@@ -12,6 +12,7 @@ const UserOwnedHomes = () => {
   const userOwnedHomes = Object.values(
     useSelector((state) => state.userOwnedHomes)
   );
+  const menu = useSelector((state) => state.currentMenuContent);
 
   const loadHome = (homeId) => {
     dispatch(getOneHomeContent(homeId));
@@ -28,7 +29,15 @@ const UserOwnedHomes = () => {
         <AddHomeModal />
         {userOwnedHomes?.map((home) => {
           return (
-            <div className="icons clicky" onClick={() => loadHome(home.id)}>
+            <div
+              key={home.id}
+              className={`icons${
+                menu.type === "singleHome" && menu.home.id === home.id
+                  ? "-active"
+                  : ""
+              } clicky`}
+              onClick={() => loadHome(home.id)}
+            >
               <img src={home.imgUrl} key={home.id} alt="home" />
             </div>
           );

@@ -42,9 +42,16 @@
   flex-direction: column;
   margin-top: 5px;
 }
+
+.single-room-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
 .single-room-container {
   display: flex;
   justify-content: space-between;
+  min-width: 85%;
   align-items: center;
   border-radius: 5px;
   padding: 5px;
@@ -60,6 +67,7 @@
 
  .single-room-container-active {
   display: flex;
+  min-width: 85%;
   justify-content: space-between;
   align-items: center;
   border-radius: 5px;
@@ -73,4 +81,16 @@
 
 .single-room-container-active:hover{
   background-color: rgba(255, 2, 2, 0.508);
+ }
+ .room-settings-icon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+ }
+
+ .room-settings-icon:hover{
+  transition: 0.3s;
+  transform: rotate(.1turn);
  }

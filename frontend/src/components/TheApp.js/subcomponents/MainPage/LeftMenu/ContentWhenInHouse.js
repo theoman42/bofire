@@ -40,14 +40,18 @@ const ContentWhenInHouse = () => {
         {rooms.map((room) => {
           let isActive = room.id === user.currentRoomId;
           return (
-            <div
-              className={`single-room-container${isActive ? "-active" : ""}`}
-              onClick={() =>
-                roomGateway(isActive, room.homeId, room.id, room.roomName)
-              }
-            >
-              <div>{room.roomName}</div>
-              {isOwned && <RoomSettingsModal roomId={room.id} />}
+            <div className="single-room-wrapper">
+              <div
+                className={`single-room-container${isActive ? "-active" : ""}`}
+                onClick={() =>
+                  roomGateway(isActive, room.homeId, room.id, room.roomName)
+                }
+              >
+                {room.roomName}
+              </div>
+              <div className="room-settings-icon">
+                {isOwned && <RoomSettingsModal roomId={room.id} />}
+              </div>
             </div>
           );
         })}

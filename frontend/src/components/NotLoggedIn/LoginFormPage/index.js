@@ -1,8 +1,9 @@
 // frontend/src/components/LoginFormPage/index.js
 import React, { useState } from "react";
-import * as sessionActions from "../../store/session";
+import * as sessionActions from "../../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { AiFillFire } from "react-icons/ai";
 import "./LoginForm.css";
 
 function LoginFormPage({ loginButton, showForm }) {
@@ -26,15 +27,21 @@ function LoginFormPage({ loginButton, showForm }) {
   };
 
   return (
-    <div className="form-wrapper">
-      <button onClick={() => loginButton(!showForm)}>Click to Sign Up</button>
-      <form className="form-container" onSubmit={handleSubmit}>
-        <ul>
+    <div className="user-form-wrapper">
+      <button
+        className="user-login-signup-switch"
+        onClick={() => loginButton(!showForm)}
+      >
+        <span>Switch to Sign Up</span>
+      </button>
+      <form className="user-form-container" onSubmit={handleSubmit}>
+        <AiFillFire className="fire-icon" />
+        <div>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
-        </ul>
-        <label>
+        </div>
+        <div className="user-text-input-container">
           <input
             placeholder="Username"
             type="text"
@@ -42,8 +49,6 @@ function LoginFormPage({ loginButton, showForm }) {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-        </label>
-        <label>
           <input
             placeholder="Password"
             type="password"
@@ -51,7 +56,7 @@ function LoginFormPage({ loginButton, showForm }) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
+        </div>
         <button type="submit">Log In</button>
       </form>
     </div>

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import * as sessionActions from "../../store/session";
+import * as sessionActions from "../../../store/session";
+import { HiOutlineUpload } from "react-icons/hi";
 
 function SignupFormPage({ loginButton, showForm }) {
   const dispatch = useDispatch();
@@ -9,8 +10,14 @@ function SignupFormPage({ loginButton, showForm }) {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [image, setImage] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
+
+  const updateFile = (e) => {
+    const file = e.target.files[0];
+    if (file) setImage(file);
+  };
 
   if (sessionUser) return <Redirect to="/" />;
 
@@ -19,7 +26,7 @@ function SignupFormPage({ loginButton, showForm }) {
     if (password === confirmPassword) {
       setErrors([]);
       return dispatch(
-        sessionActions.signup({ email, username, password })
+        sessionActions.signup({ email, username, password, image })
       ).catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
@@ -31,15 +38,28 @@ function SignupFormPage({ loginButton, showForm }) {
   };
 
   return (
-    <div className="form-wrapper">
-      <button onClick={() => loginButton(!showForm)}>Click to Login</button>
-      <form className="form-container" onSubmit={handleSubmit}>
-        <ul>
+    <div className="user-form-wrapper">
+      <button
+        className="user-login-signup-switch"
+        onClick={() => loginButton(!showForm)}
+      >
+        <span>Switch to Login</span>
+      </button>
+      <form className="user-form-container" onSubmit={handleSubmit}>
+        <div>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
-        </ul>
-        <label>
+        </div>
+        <input id="user-file-input" type="file" onChange={updateFile} />
+        <label htmlFor="user-file-input">
+          {image ? (
+            <img src={image} alt="Temporary Profile Picture" />
+          ) : (
+            <HiOutlineUpload className="upload-photo-icon" />
+          )}
+        </label>
+        <div className="user-text-input-container">
           <input
             placeholder="Email"
             type="text"
@@ -47,8 +67,7 @@ function SignupFormPage({ loginButton, showForm }) {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        <label>
+
           <input
             placeholder="Username"
             type="text"
@@ -56,8 +75,7 @@ function SignupFormPage({ loginButton, showForm }) {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-        </label>
-        <label>
+
           <input
             placeholder="Password"
             type="password"
@@ -65,8 +83,7 @@ function SignupFormPage({ loginButton, showForm }) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        <label>
+
           <input
             placeholder="Confirm Password"
             type="password"
@@ -74,7 +91,7 @@ function SignupFormPage({ loginButton, showForm }) {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-        </label>
+        </div>
         <button type="submit">Sign Up</button>
       </form>
     </div>

@@ -4,6 +4,7 @@ import thunk from "redux-thunk";
 import userOwnedHomesReducer from "./userOwnedHomes";
 import userPartHomesReducer from "./userPartHomes";
 import currentMenuContentReducer from "./currentMenuContent";
+import currentMainContentReducer from "./currentMainContent";
 import roomsReducer from "./room";
 import messageReducer1 from "./messageState1";
 import anagramReducer from "./anagram";
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   userOwnedHomes: userOwnedHomesReducer,
   userPartHomes: userPartHomesReducer,
   currentMenuContent: currentMenuContentReducer,
+  currentMainContent: currentMainContentReducer,
   rooms: roomsReducer,
   messages1: messageReducer1,
   anagram: anagramReducer,
