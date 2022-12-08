@@ -22,13 +22,18 @@ const singleMulterUpload = (nameOfKey) =>
 
 // Sign up
 router.post(
-  "/",
+  "/:image",
   singleMulterUpload("image"),
   validateSignup,
   async (req, res) => {
-    const { email, password, username, image } = req.body;
+    const { image } = req.params;
+    const { email, password, username } = req.body;
+
     let profileImageUrl;
-    if (image) profileImageUrl = await singlePublicFileUpload(req.file);
+    if (image) {
+      profileImageUrl = await singlePublicFileUpload(req.file);
+    }
+
     const user = await User.signup({
       email,
       username,
@@ -46,12 +51,12 @@ router.post(
 
 // Add Home
 router.post(
-  "/:userId/ownedHomes",
+  "/:userId/ownedHomes/:image",
   singleMulterUpload("image"),
   validateHome,
   async (req, res) => {
-    let { userId } = req.params;
-    let { homeName, image } = req.body;
+    let { userId, image } = req.params;
+    let { homeName } = req.body;
     userId = parseInt(userId);
 
     let homeImg = `https://picsum.photos/id/${Math.floor(
@@ -81,11 +86,11 @@ router.post(
 
 // Update Home
 router.put(
-  "/:userId/ownedHomes/:homeId",
+  "/:userId/ownedHomes/:homeId/:image",
   singleMulterUpload("image"),
   async (req, res) => {
-    let { userId, homeId } = req.params;
-    let { homeName, image } = req.body;
+    let { userId, homeId, image } = req.params;
+    let { homeName } = req.body;
 
     let homeImg;
     if (image) {

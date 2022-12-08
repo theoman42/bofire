@@ -1,3 +1,16 @@
 .special-main-button {
   padding: 20px 40px;
 }
+
+.main-lower-content-wrapper {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.links-icons {
+  margin: 5px;
+  height: 32px;
+  width: 32px;
+}
