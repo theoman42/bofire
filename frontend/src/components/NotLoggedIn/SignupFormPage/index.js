@@ -11,12 +11,17 @@ function SignupFormPage({ loginButton, showForm }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [image, setImage] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
   const updateFile = (e) => {
     const file = e.target.files[0];
-    if (file) setImage(file);
+    if (file) {
+      setImageFile(file);
+      setImage(URL.createObjectURL(file));
+    }
   };
 
   if (sessionUser) return <Redirect to="/" />;
@@ -26,7 +31,7 @@ function SignupFormPage({ loginButton, showForm }) {
     if (password === confirmPassword) {
       setErrors([]);
       return dispatch(
-        sessionActions.signup({ email, username, password, image })
+        sessionActions.signup({ email, username, password, image: imageFile })
       ).catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);

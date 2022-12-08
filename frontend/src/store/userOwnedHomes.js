@@ -46,15 +46,21 @@ export const getUserOwnedHomes = (userId) => async (dispatch) => {
 export const addHome = (payload, userId) => async (dispatch) => {
   const { image, homeName } = payload;
   const formData = new FormData();
+  let imageExist = 0;
+  if (image) imageExist = 1;
+
   if (image) formData.append("image", image);
   formData.append("homeName", homeName);
-  const response = await csrfFetch(`api/users/${userId}/ownedHomes`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-    body: formData,
-  });
+  const response = await csrfFetch(
+    `api/users/${userId}/ownedHomes/${imageExist}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      body: formData,
+    }
+  );
   if (response.ok) {
     const data = await response.json();
     dispatch(addOneHome(data.newHome));
@@ -65,15 +71,21 @@ export const addHome = (payload, userId) => async (dispatch) => {
 export const updateHome = (payload, userId, homeId) => async (dispatch) => {
   const { image, homeName } = payload;
   const formData = new FormData();
+
+  let imageExist = 0;
+  if (image) imageExist = 1;
   if (image) formData.append("image", image);
-  formData.append("homeName", homeName);
-  const response = await csrfFetch(`api/users/${userId}/ownedHomes/${homeId}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-    body: formData,
-  });
+
+  const response = await csrfFetch(
+    `api/users/${userId}/ownedHomes/${homeId}/${imageExist}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      body: formData,
+    }
+  );
 
   if (response.ok) {
     const data = await response.json();

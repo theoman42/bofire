@@ -43,11 +43,12 @@ export const signup = (user) => async (dispatch) => {
   formData.append("username", username);
   formData.append("email", email);
   formData.append("password", password);
-
-  // for single file
+  console.log(image);
+  let imageExist = 0;
+  if (image) imageExist = 1;
   if (image) formData.append("image", image);
 
-  const res = await csrfFetch(`/api/users/`, {
+  const res = await csrfFetch(`/api/users/${imageExist}`, {
     method: "POST",
     headers: {
       "Content-Type": "multipart/form-data",

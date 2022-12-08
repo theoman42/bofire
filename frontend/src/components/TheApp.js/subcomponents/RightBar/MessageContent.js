@@ -28,7 +28,6 @@ function MessageContent() {
   }, [messages]);
 
   useEffect(() => {
-    console.log("userUpdated");
     if (user.currentRoomId) {
       setRoomName(rooms[user.currentRoomId].roomName);
     } else {

@@ -18,7 +18,6 @@ function Navigation() {
   const menu = useSelector((state) => state.currentMenuContent);
   const [imageExists, setImageExists] = useState(false);
 
-  console.log(menu.type);
   useEffect(() => {
     if (user.profileImageUrl) setImageExists(true);
   }, [user]);
