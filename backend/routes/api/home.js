@@ -77,13 +77,13 @@ router.get("/:homeId/rooms", async (req, res) => {
     where: { homeId },
   });
 
-  if (!allRooms) {
-    const err = new Error("No Room Found");
-    err.status = 404;
-    err.title = "No Room Found";
-    err.errors = ["No Room Found"];
-    return next(err);
-  }
+  // if (!allRooms) {
+  //   const err = new Error("No Room Found");
+  //   err.status = 404;
+  //   err.title = "No Room Found";
+  //   err.errors = ["No Room Found"];
+  //   return next(err);
+  // }
 
   return res.json({
     allRooms,

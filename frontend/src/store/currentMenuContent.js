@@ -38,6 +38,7 @@ export const resetContent = (data) => async (dispatch) => {
 export const getOneHomeContent = (homeId) => async (dispatch) => {
   const response = await csrfFetch(`api/homes/${homeId}`);
   const data = await response.json();
+
   dispatch(
     getHomeContent({
       home: data.home,

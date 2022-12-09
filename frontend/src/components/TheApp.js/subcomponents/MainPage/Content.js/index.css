@@ -3,14 +3,26 @@
 }
 
 .main-lower-content-wrapper {
-  height: 100%;
+  height: 30%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
 }
 
 .links-icons {
-  margin: 5px;
+  margin: 10px 20px;
   height: 32px;
   width: 32px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.linkedin-blue:hover{
+  color: #0072b1;
+  scale: 1.2;
+}
+
+.github-white:hover{
+  color: #fff;
+  scale: 1.2;
 }

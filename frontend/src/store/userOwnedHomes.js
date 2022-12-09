@@ -75,6 +75,7 @@ export const updateHome = (payload, userId, homeId) => async (dispatch) => {
   let imageExist = 0;
   if (image) imageExist = 1;
   if (image) formData.append("image", image);
+  formData.append("homeName", homeName);
 
   const response = await csrfFetch(
     `api/users/${userId}/ownedHomes/${homeId}/${imageExist}`,

@@ -29,6 +29,8 @@ router.post(
     const { image } = req.params;
     const { email, password, username } = req.body;
 
+    image = parseInt(image);
+
     let profileImageUrl;
     if (image) {
       profileImageUrl = await singlePublicFileUpload(req.file);
@@ -57,11 +59,13 @@ router.post(
   async (req, res) => {
     let { userId, image } = req.params;
     let { homeName } = req.body;
+    image = parseInt(image);
     userId = parseInt(userId);
 
     let homeImg = `https://picsum.photos/id/${Math.floor(
       Math.random() * 1084
     )}/300`;
+    console.log(typeof image);
     if (image) {
       homeImg = await singlePublicFileUpload(req.file);
     }
@@ -91,6 +95,8 @@ router.put(
   async (req, res) => {
     let { userId, homeId, image } = req.params;
     let { homeName } = req.body;
+
+    image = parseInt(image);
 
     let homeImg;
     if (image) {

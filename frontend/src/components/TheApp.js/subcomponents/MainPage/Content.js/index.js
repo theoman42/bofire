@@ -11,16 +11,16 @@ import "./index.css";
 const Content = () => {
   const sessionUser = useSelector((state) => state.session.user);
   const main = useSelector((state) => state.currentMenuContent);
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(<Anagram />);
   const dispatch = useDispatch();
 
   useEffect(() => {
     switch (main.type) {
       case "singleHome":
-        setContent(<SingleHome />);
+        setContent(<Anagram />);
         break;
       case "homePage":
-        setContent(<HomePage />);
+        setContent(<Anagram />);
         break;
       case "profilePage":
         break;
@@ -35,10 +35,10 @@ const Content = () => {
       <div className="main-top-content-wrapper">{content}</div>
       <div className="main-lower-content-wrapper">
         <a href="https://www.linkedin.com/in/theofandrich/">
-          <AiFillLinkedin className="links-icons" />
+          <AiFillLinkedin className="links-icons linkedin-blue" />
         </a>
         <a href="https://github.com/theoman42">
-          <AiFillGithub className="links-icons" />
+          <AiFillGithub className="links-icons github-white" />
         </a>
       </div>
     </div>

@@ -282,15 +282,19 @@ const Anagram = () => {
       let payload = {
         word: `${input0}${input1}${input2}${input3}${input4}${input5}${input6}${input7}`,
       };
-
-      if (!currentWordsArray.includes(payload.word)) {
+      if (currentWordsArray.includes(payload.word)) {
         blinkRed();
+      }
+      if (!currentWordsArray.includes(payload.word)) {
         let data = await dispatch(submitAWord(payload, anagram.id, user.id));
         if (data.score !== anagram.score) {
           setCurrentWordsArray((currentWordsArray) => [
             ...currentWordsArray,
             payload.word,
           ]);
+          blinkGreen();
+        } else {
+          blinkRed();
         }
       }
       clearAnagrams();
@@ -301,7 +305,6 @@ const Anagram = () => {
   const focusFunc = (i) => {
     inputRefObj[i].current.focus();
   };
-  const blinkRed = () => {};
 
   let gameFunc = {
     0: setInput0,
@@ -323,6 +326,28 @@ const Anagram = () => {
     5: inputRef5,
     6: inputRef6,
     7: inputRef7,
+  };
+
+  const blinkGreen = () => {
+    for (let i = 0; i < 6; i++) {
+      inputRefObj[i].current.style.background = "green";
+    }
+    setTimeout(() => {
+      for (let i = 0; i < 6; i++) {
+        inputRefObj[i].current.style.background = "white";
+      }
+    }, 200);
+  };
+
+  const blinkRed = () => {
+    for (let i = 0; i < 6; i++) {
+      inputRefObj[i].current.style.background = "red";
+    }
+    setTimeout(() => {
+      for (let i = 0; i < 6; i++) {
+        inputRefObj[i].current.style.background = "white";
+      }
+    }, 200);
   };
 
   const setValueProperty = (i) => {
@@ -400,7 +425,9 @@ const Anagram = () => {
           </div>
         </>
       ) : (
-        <button onClick={startGame}>Start Game</button>
+        <button className="anagram-start-button" onClick={startGame}>
+          Start Game
+        </button>
       )}
     </div>
   );

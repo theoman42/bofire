@@ -1,0 +1,36 @@
+
+> start
+> per-env
+
+
+> start:development
+> nodemon -r dotenv/config ./bin/www
+
+[33m[nodemon] 2.0.20[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,json[39m
+[32m[nodemon] starting `node -r dotenv/config ./bin/www`[39m
+[
+  'cabhed', 'cabhes', 'dackeb', 'rackeb', 'backup', 'nacobs',
+  'gadber', 'gadbes', 'eadmbn', 'sagelb', 'abgful', 'eagmbn',
+  'gabnio', 'abguet', 'daileb', 'abiler', 'eailby', 'bailor',
+  'abirns', 'iabted', 'eaitbr', 'iabzes', 'abkers', 'kabery',
+  'gakinb', 'balder', 'balers', 'nalibg', 'dalkeb', 'balker',
+  'canbos', 'nabder', 'abndit', 'oandbg', 'banged', 'ganber',
+  'ganble', 'nabish', 'oanjbs', 'eankbd', 'kanber', 'nabter',
+  'darbes', 'cardib', 'earbly', 'earbst', 'darfeb', 'abrfly',
+  'dargeb', 'abrges', 'parhob', 'baring', 'earitb', 'rabium',
+  'karbed', 'rabley', 'rablow', 'abrmen', 'barmie', 'narobg',
+  'saronb', 'oarbny', 'rabque', 'yarbes', 'rabyon', 'earytb',
+  'absely', 'eashbd', 'eashbr', 'iasbfy', 'sabing', 'nasiob',
+  'daskeb', 'easkbt', 'easqub', 'dasteb', 'abster', 'tabhed',
+  'tabher', 'abthes', 'sathob', 'tabiks', 'tabing', 'matben',
+  'abtons', 'uablks', 'laubky', 'rawdby', 'wabled', 'wabler',
+  'abwtie', 'yabing', 'yabmen', 'bayous', 'yeachb', 'neacob',
+  'neabos', 'beards', 'teaubs', 'beauty',
+  ... 1894 more items
+]
+Executing (default): SELECT 1+1 AS result
+Database connection success! Sequelize is ready to use...
+Listening on port 8000...

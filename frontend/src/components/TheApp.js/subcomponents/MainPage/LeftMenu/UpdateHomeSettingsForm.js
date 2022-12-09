@@ -36,18 +36,16 @@ const UpdateHomeSettingsForm = ({ onClose }) => {
       image: imageFile,
     };
 
-    await dispatch(updateHome(payload, user.id, menuContent.home.id)).then(
-      (res) => {
-        dispatch(getOneHomeContent(res.id));
-      }
-    );
-    // .catch(async (res) => {
-    //   const data = await res;
-    //   if (data && data.errors) setErrors(data.errors);
-    // });
+    const updatedHome = await dispatch(
+      updateHome(payload, user.id, menuContent.home.id)
+    ).catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) setErrors(data.errors);
+    });
 
-    // if (updatedHome) {
-    // }
+    if (updatedHome) {
+      dispatch(getOneHomeContent(updatedHome.id));
+    }
 
     onClose();
   };

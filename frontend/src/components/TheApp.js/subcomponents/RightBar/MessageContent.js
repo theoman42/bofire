@@ -19,6 +19,7 @@ function MessageContent() {
   const autoScroll = useRef(null);
 
   useEffect(() => {
+    setNewText("");
     setType(messages.type);
     setTempId(messages.id);
     autoScroll.current?.scrollIntoView({
