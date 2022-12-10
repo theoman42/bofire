@@ -20,7 +20,7 @@ const LeftMenu = () => {
         break;
       case "homePage":
         setTitle("Home");
-        setShowSettings(true);
+        setShowSettings(false);
         break;
       case "profilePage":
         setTitle(`${user.username}`);
@@ -32,7 +32,7 @@ const LeftMenu = () => {
         break;
       default:
         setTitle("Home");
-        setShowSettings(true);
+        setShowSettings(false);
     }
   }, [menuContent, user]);
 

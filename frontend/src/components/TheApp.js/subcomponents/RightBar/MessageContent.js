@@ -2,8 +2,9 @@
 import React, { useState, useRef } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { sendMessage } from "../../../../store/messageState1";
+import { getMessages, sendMessage } from "../../../../store/messageState1";
 import "./RightBar.css";
+import { clearMessages } from "../../../../store/messageState1";
 
 function MessageContent() {
   const user = useSelector((state) => state.session.user);
@@ -18,6 +19,8 @@ function MessageContent() {
 
   const autoScroll = useRef(null);
 
+  useEffect(() => {});
+
   useEffect(() => {
     setNewText("");
     setType(messages.type);
@@ -30,11 +33,12 @@ function MessageContent() {
 
   useEffect(() => {
     if (user.currentRoomId) {
-      setRoomName(rooms[user.currentRoomId].roomName);
+      setRoomName(messages.roomName);
     } else {
       setRoomName("");
+      dispatch(clearMessages());
     }
-  }, [user]);
+  }, [user, rooms]);
 
   const updateText = (e) => setNewText(e.target.value);
 
@@ -54,7 +58,6 @@ function MessageContent() {
     difference -= minutesDifference * 1000 * 60;
     let secondsDifference = Math.floor(difference / 1000);
     if (secondsDifference) return `${secondsDifference}s`;
-
     return "just now";
   };
 
@@ -74,7 +77,7 @@ function MessageContent() {
     <div className="right-bar-messaging-container">
       <div className="right-bar-messaging-tabs-container">
         <div className={`right-bar-tab-1 ${active === 1 ? "active-m" : ""}`}>
-          {JSON.stringify(messages) !== "{}" ? currentRoomName : "Join a Room!"}
+          Messages
         </div>
       </div>
       <div className="messages-wrapper">

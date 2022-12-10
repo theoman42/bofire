@@ -37,6 +37,7 @@ const UpdateRoomSettingsForm = ({ roomId, onClose }) => {
     await dispatch(updateRoom(homeId, roomId, payload)).catch(async (res) => {
       const data = await res.json();
       if (data && data.errors) setErrors(data.errors);
+      res.json(errors);
     });
     // .then(async (res) => {
     //   dispatch(getOneHomeContent(res.updatedHome.id));
@@ -46,8 +47,8 @@ const UpdateRoomSettingsForm = ({ roomId, onClose }) => {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    dispatch(deleteRoom(user.id, homeId, roomId));
     dispatch(leaveRoom(user.id));
+    dispatch(deleteRoom(user.id, homeId, roomId));
     dispatch(clearMessages());
     onClose();
   };

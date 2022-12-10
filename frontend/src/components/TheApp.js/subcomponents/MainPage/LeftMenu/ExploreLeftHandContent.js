@@ -7,7 +7,7 @@ function ExploreLeftHandContent() {
 
   return (
     <>
-      <div>Hello???</div>
+      <div>In Development</div>
     </>
   );
 }

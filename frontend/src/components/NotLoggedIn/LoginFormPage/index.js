@@ -26,6 +26,15 @@ function LoginFormPage({ loginButton, showForm }) {
     );
   };
 
+  const demoLogin = () => {
+    return dispatch(
+      sessionActions.login({ username: "demo", password: "password" })
+    ).catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) setErrors(data.errors);
+    });
+  };
+
   return (
     <div className="user-form-wrapper">
       <button
@@ -57,7 +66,10 @@ function LoginFormPage({ loginButton, showForm }) {
             required
           />
         </div>
-        <button type="submit">Log In</button>
+        <div className="button-logins">
+          <button type="submit">Log In</button>
+          <button onClick={demoLogin}> Demo </button>
+        </div>
       </form>
     </div>
   );

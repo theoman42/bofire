@@ -55,7 +55,7 @@ function Navigation() {
         </div>
       </div>
       <UserOwnedHomes type={menu.type} />
-      <UserPartHomes type={menu.type} />
+      {/* <UserPartHomes type={menu.type} /> */}
     </div>
   );
 }

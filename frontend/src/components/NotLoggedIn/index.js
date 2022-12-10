@@ -23,7 +23,6 @@ function NotLoggedIn({ loginButton, showForm }) {
             showForm={showLoginForm}
           />
         )}
-        <div>hello</div>
       </div>
     </>
   );
