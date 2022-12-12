@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom";
 import { addHome } from "../../../../store/userOwnedHomes";
@@ -15,6 +15,7 @@ const AddHomeModalForm = (props) => {
   const [imageFile, setImageFile] = useState(null);
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState([]);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const updateHomeName = (e) => setHomeName(e.target.value);
 
@@ -27,7 +28,7 @@ const AddHomeModalForm = (props) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsDisabled(true);
     const payload = {
       homeName,
       image: imageFile,
@@ -36,9 +37,13 @@ const AddHomeModalForm = (props) => {
     let newHome = await dispatch(addHome(payload, user.id)).catch(
       async (res) => {
         const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
+        if (data && data.errors) {
+          setErrors(data.errors);
+          setIsDisabled(false);
+        }
       }
     );
+
     if (newHome) {
       dispatch(
         getHomeContent({
@@ -80,7 +85,7 @@ const AddHomeModalForm = (props) => {
             onChange={updateHomeName}
           />
         </div>
-        <button className="same-button" type="submit">
+        <button disabled={isDisabled} className="same-button" type="submit">
           Submit Form
         </button>
       </form>

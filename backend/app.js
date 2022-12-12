@@ -24,41 +24,6 @@ if (!isProduction) {
   app.use(cors());
 }
 
-//---------------------Video---------------------------------------------
-const server = require("http").createServer(app);
-
-const io = require("socket.io")(server, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
-});
-
-// app.get("/", (req, res) => {
-//   res.send("Server is running properly");
-// });
-
-// io.on("connection", (socket) => {
-//   socket.emit("me", socket.id);
-//   console.log("emit me ran");
-
-//   socket.on("disconnect", () => {
-//     socket.broadcast.emit("callended");
-//   });
-
-//   socket.on("calluser", ({ userToCall, signalData, from, name }) => {
-//     console.log("calluser ran");
-//     io.to(userToCall).emit("calluser", { signal: signalData, from, name });
-//     console.log("calluser emitted");
-//   });
-
-//   socket.on("answercall", (data) => {
-//     io.to(data.to).emit("callaccepted", { signal: data.signal });
-//     console.log("callaccepted emitted");
-//   });
-// });
-//------------------------------------------------------------------------
-
 // helmet helps set a variety of headers to better secure your app
 app.use(
   helmet.crossOriginResourcePolicy({

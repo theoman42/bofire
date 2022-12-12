@@ -43,7 +43,7 @@ export const signup = (user) => async (dispatch) => {
   formData.append("username", username);
   formData.append("email", email);
   formData.append("password", password);
-  console.log(image);
+
   let imageExist = 0;
   if (image) imageExist = 1;
   if (image) formData.append("image", image);

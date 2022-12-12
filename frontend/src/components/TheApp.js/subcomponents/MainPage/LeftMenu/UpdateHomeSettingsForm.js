@@ -20,6 +20,7 @@ const UpdateHomeSettingsForm = ({ onClose }) => {
   const [imageFile, setImageFile] = useState(null);
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState([]);
+  // const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
     setHomeName(menuContent.home.homeName);
@@ -30,7 +31,6 @@ const UpdateHomeSettingsForm = ({ onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const payload = {
       homeName,
       image: imageFile,
@@ -41,14 +41,12 @@ const UpdateHomeSettingsForm = ({ onClose }) => {
     ).catch(async (res) => {
       const data = await res.json();
       if (data && data.errors) setErrors(data.errors);
-      res.json(errors);
     });
 
     if (updatedHome) {
       dispatch(getOneHomeContent(updatedHome.id));
+      onClose();
     }
-
-    onClose();
   };
 
   const updateFile = (e) => {

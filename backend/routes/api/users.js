@@ -65,7 +65,7 @@ router.post(
     let homeImg = `https://picsum.photos/id/${Math.floor(
       Math.random() * 1084
     )}/300`;
-    console.log(typeof image);
+
     if (image) {
       homeImg = await singlePublicFileUpload(req.file);
     }
@@ -92,6 +92,7 @@ router.post(
 router.put(
   "/:userId/ownedHomes/:homeId/:image",
   singleMulterUpload("image"),
+  validateHome,
   async (req, res) => {
     let { userId, homeId, image } = req.params;
     let { homeName } = req.body;

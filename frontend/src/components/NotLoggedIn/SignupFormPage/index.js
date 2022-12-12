@@ -12,7 +12,6 @@ function SignupFormPage({ loginButton, showForm }) {
   const [password, setPassword] = useState("");
   const [image, setImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
-
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
