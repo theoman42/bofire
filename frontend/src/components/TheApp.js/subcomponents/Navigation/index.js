@@ -33,14 +33,14 @@ function Navigation() {
         >
           <AiOutlineHome />
         </div>
-        <div
+        {/* <div
           className={`icons${
             menu.type === "explorePage" ? "-active" : ""
           } clicky`}
           onClick={() => dispatch(goExplore())}
         >
           <GiThreeFriends />
-        </div>
+        </div> */}
         <div
           className={`icons${
             menu.type === "profilePage" ? "-active" : ""

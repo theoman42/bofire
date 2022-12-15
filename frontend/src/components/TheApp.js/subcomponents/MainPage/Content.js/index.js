@@ -6,6 +6,7 @@ import Anagram from "../../../../Games/Anagrams";
 import SingleHome from "./SingleHome";
 import HomePage from "./HomePage";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
+import GameMenuModal from "../Game/GameModal/Index";
 import "./index.css";
 
 const Content = () => {
@@ -33,6 +34,7 @@ const Content = () => {
   return (
     <div className="content-wrapper">
       <div className="main-top-content-wrapper">{content}</div>
+
       <div className="main-lower-content-wrapper">
         <a href="https://www.linkedin.com/in/theofandrich/">
           <AiFillLinkedin className="links-icons linkedin-blue" />

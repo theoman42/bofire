@@ -95,3 +95,14 @@
   transition: 0.3s;
   transform: rotate(.1turn);
  }
+
+
+
+ /* Stuff Used Deep within Left Menu*/
+
+ .activities-menu-modal{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 12px;
+  justify-content: space-around;
+}
