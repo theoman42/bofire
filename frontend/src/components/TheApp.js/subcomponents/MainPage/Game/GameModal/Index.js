@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "../../../../../../context/Modal";
 import { RiGamepadLine } from "react-icons/ri";
+import GameSelectionMenu from "./GameModal";
 import "./index.css";
 
 const GameMenuModal = () => {
@@ -13,7 +14,7 @@ const GameMenuModal = () => {
       </div>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          {/* <AddHomeModalForm onClose={() => setShowModal(false)} /> */}
+          <GameSelectionMenu onClose={() => setShowModal(false)} />
         </Modal>
       )}
     </>

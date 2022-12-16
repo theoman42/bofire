@@ -91,3 +91,10 @@
 .modal-form-container li {
   list-style: none;
 }
+
+.modal-game-menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px;
+}
