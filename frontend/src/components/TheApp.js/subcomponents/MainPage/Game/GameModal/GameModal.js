@@ -1,7 +1,10 @@
 const GameSelectionMenu = ({ onClose }) => {
   return (
     <>
-      <div className="modal-game-menu-container"></div>
+      <div className="modal-game-menu-container">
+        <div>Anagram</div>
+        <div>Worldle</div>
+      </div>
     </>
   );
 };
