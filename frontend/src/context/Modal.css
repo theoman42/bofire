@@ -93,13 +93,20 @@
 }
 
 .modal-game-menu-container {
+  padding: 20px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 20px;
   grid-auto-rows: minmax(100px, auto);
 }
 
-.modal-game-menu-container div{
+.modal-game-menu-container svg{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 30px;
   width: 30px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
 }
