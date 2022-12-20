@@ -4,15 +4,80 @@ Welcome to my capstone project (still in development) that used discord as a mai
 
 ## Table Content
 
-- Technologies Used
-  - Postgres
-  - SQLite
-  - Sequelize
-  - JavaScript
-  - Redux
-  - React
-  - CSS
-  - AWS
+<br/>
+
+1. Clone Locally
+
+<br/>
+
+```
+git clone https://github.com/theoman42/airbnb2.0.git
+```
+
+<br/>
+
+2. Create a .env file in the backend directory
+
+<br/>
+
+- PORT= The Port the backend will run on.
+- DB_FILE= Location of the database file
+- JWT_SECRET= JWT Secret Key
+- JWT_EXPIRES_IN= Period JWT Key is active before expiry
+
+<br/>
+
+3. Open up your project in VScode or any development environment and run the following command in the frontend, backend and the root directoy in order to load all dependencies.
+
+<br/>
+
+```
+npm install
+```
+
+<br/>
+
+4. Load models and seed the database.
+
+<br/>
+
+```
+dotenv npx sequelize db:migrate
+```
+
+```
+dotenv npx sequelize db:seed:all
+```
+
+<br/>
+
+5. Once all dependencies are loaded, start both the backend and front end servers with the following command:
+
+<br/>
+
+```
+npm start
+```
+
+<br/>
+
+## Technologies:
+
+---
+
+- JavaScript
+- HTML
+- CSS
+- React
+- Redux
+- Node.js
+- Express.js
+- Sequelize
+- Sqlite3
+- Heroku
+- AWS
+
+<br/>
 
 ## Steps on getting started
 
