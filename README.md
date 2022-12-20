@@ -2,7 +2,7 @@
 
 Welcome to my capstone project (still in development) that used discord as a main template. My hope is that my website will be a simplified discord cousin with a chat roulette funcitonality and free activities to enjoy with new friends you make online!
 
-## Table Content
+## HOW TO GET STARTED
 
 <br/>
 
@@ -79,16 +79,6 @@ npm start
 
 <br/>
 
-## Steps on getting started
-
-1.  Pull the project to clone
-2.  npm install dependencies
-    1. To migrate and seed your database run the following
-       - dotenv npx sequelize db:migrate
-       - dotenv npx sequelize db:seed:all
-3.  Run npm start in your backend folder to start the server
-4.  Run npm start in your frontend folder to start your React App
-5.  The application will start at http://localhost:3000/
 
 ## Screenshots of Usage
 
