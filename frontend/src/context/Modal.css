@@ -93,10 +93,10 @@
 }
 
 .modal-game-menu-container {
-  padding: 20px;
+  padding: 40px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 20px 60px;
   grid-auto-rows: minmax(100px, auto);
 }
 
@@ -104,9 +104,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30px;
-  width: 30px;
-  padding: 10px;
+  height: 25px;
+  width: 25px;
+  padding: 30px;
   border: 1px solid black;
   border-radius: 5px;
+  transition: 0.3s;
+  background-color: #6e51e3;
+  color: white;
+}
+
+.modal-game-menu-container svg:hover{
+  background-color: #FFF;
+  color: #e36e51;
+  scale: 1.05;
 }

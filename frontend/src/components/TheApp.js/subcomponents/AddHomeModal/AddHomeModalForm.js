@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom";
 import { addHome } from "../../../../store/userOwnedHomes";
 import { getHomeContent } from "../../../../store/currentMenuContent";
-import campfireImage from "../../../../stuff/campfire.jpg";
 import { HiOutlineUpload } from "react-icons/hi";
 
 const AddHomeModalForm = (props) => {
