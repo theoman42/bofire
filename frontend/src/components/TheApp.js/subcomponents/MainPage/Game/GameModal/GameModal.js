@@ -6,6 +6,7 @@ const GameSelectionMenu = ({ onClose }) => {
       <div className="modal-game-menu-container">
         <TbLetterA />
         <TbLetterW />
+        <TbLetterW />
       </div>
     </>
   );
