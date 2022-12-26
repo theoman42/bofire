@@ -7,6 +7,7 @@ const GameSelectionMenu = ({ onClose }) => {
         <TbLetterA />
         <TbLetterW />
         <TbLetterW />
+        <TbLetterW />
       </div>
     </>
   );
