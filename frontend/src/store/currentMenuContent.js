@@ -17,17 +17,17 @@ const goToHome = (data) => {
   };
 };
 
-export const goToProfile = () => {
+export const goToProfile = (content) => {
   return {
     type: CHANGE_TYPE,
-    payload: { type: "profilePage" },
+    payload: { type: "profilePage", content: content },
   };
 };
 
-export const goExplore = () => {
+export const goExplore = (content) => {
   return {
     type: CHANGE_TYPE,
-    payload: { type: "explorePage" },
+    payload: { type: "explorePage", content: content },
   };
 };
 
@@ -48,8 +48,8 @@ export const getOneHomeContent = (homeId) => async (dispatch) => {
   return response;
 };
 
-export const goHome = () => async (dispatch) => {
-  dispatch(goToHome({ type: "homePage" }));
+export const goHome = (content) => async (dispatch) => {
+  dispatch(goToHome({ type: "homePage", content: content }));
 };
 
 const currentMenuContentReducer = (state = {}, action) => {

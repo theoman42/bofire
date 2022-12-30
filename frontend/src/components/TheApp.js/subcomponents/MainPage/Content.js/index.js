@@ -11,25 +11,27 @@ import "./index.css";
 
 const Content = () => {
   const sessionUser = useSelector((state) => state.session.user);
-  const main = useSelector((state) => state.currentMenuContent);
+  const menu = useSelector((state) => state.currentMenuContent);
   const [content, setContent] = useState(<Anagram />);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    switch (main.type) {
+    switch (menu.type) {
       case "singleHome":
         setContent(<Anagram />);
         break;
       case "homePage":
-        setContent(<Anagram />);
+        setContent(<> Welcome </>);
         break;
       case "profilePage":
+        setContent(<> Welcome </>);
         break;
       case "explorePage":
+        setContent(<> Welcome </>);
         break;
       default:
     }
-  }, [main, sessionUser]);
+  }, [menu, sessionUser]);
 
   return (
     <div className="content-wrapper">
