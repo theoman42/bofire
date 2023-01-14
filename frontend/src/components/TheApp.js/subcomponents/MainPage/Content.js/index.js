@@ -3,11 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../MainPage.css";
 import Anagram from "../../../../Games/Anagrams";
-import SingleHome from "./SingleHome";
-import HomePage from "./HomePage";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
-import GameMenuModal from "../Game/GameModal/Index";
 import "./index.css";
+import HomePage from "./HomePage";
 
 const Content = () => {
   const sessionUser = useSelector((state) => state.session.user);
@@ -15,16 +13,25 @@ const Content = () => {
   const [content, setContent] = useState(<Anagram />);
   const dispatch = useDispatch();
 
+  let tempContent = (
+    <div>
+      <div className="home-page-welcome-font"> Welcome Home!</div>
+      <Anagram />
+    </div>
+  );
+
   useEffect(() => {
     switch (menu.type) {
       case "singleHome":
         setContent(<Anagram />);
         break;
       case "homePage":
-        setContent(<> Welcome </>);
+        setContent(tempContent);
         break;
       case "profilePage":
-        setContent(<> Welcome </>);
+        setContent(
+          <div className="home-page-welcome-font"> Welcome Home!</div>
+        );
         break;
       case "explorePage":
         setContent(<> Welcome </>);

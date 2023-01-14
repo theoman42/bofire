@@ -287,6 +287,10 @@ const Anagram = () => {
       }
       if (!currentWordsArray.includes(payload.word)) {
         let data = await dispatch(submitAWord(payload, anagram.id, user.id));
+
+        console.log(data.score !== anagram.score);
+        console.log(typeof data.score);
+        console.log(typeof anagram.score);
         if (data.score !== anagram.score) {
           setCurrentWordsArray((currentWordsArray) => [
             ...currentWordsArray,

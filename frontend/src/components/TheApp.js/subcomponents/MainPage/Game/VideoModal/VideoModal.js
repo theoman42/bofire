@@ -1,7 +1,7 @@
-import { TbLetterA, TbLetterW } from "react-icons/tb";
+import { TbLetterV, TbLetterW } from "react-icons/tb";
 import Anagram from "../../../../../Games/Anagrams";
 
-const GameSelectionMenu = ({ onClose }) => {
+const VideoSelectionModal = ({ onClose }) => {
   return (
     <>
       <div className="modal-game-menu-container">
@@ -11,4 +11,4 @@ const GameSelectionMenu = ({ onClose }) => {
   );
 };
 
-export default GameSelectionMenu;
+export default VideoSelectionModal;

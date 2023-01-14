@@ -93,11 +93,14 @@
 }
 
 .modal-game-menu-container {
-  padding: 40px;
+  display: flex;
+  justify-content: center;
+  padding: 100px;
+  /* padding: 40px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px 60px;
-  grid-auto-rows: minmax(100px, auto);
+  grid-auto-rows: minmax(100px, auto); */
 }
 
 .modal-game-menu-container svg{

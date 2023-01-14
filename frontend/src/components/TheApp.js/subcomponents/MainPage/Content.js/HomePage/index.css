@@ -1,0 +1,12 @@
+.main-menu-grid {
+  display: grid;
+  height: 500px;
+  width: 500px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 60px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.main-menu-grid div {
+  border: 1px solid gray;
+}

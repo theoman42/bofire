@@ -7,6 +7,7 @@ import { enterRoom, leaveRoom } from "../../../../../store/session";
 import { getMessages } from "../../../../../store/messageState1";
 import { clearMessages } from "../../../../../store/messageState1";
 import GameMenuModal from "../Game/GameModal/Index";
+import VideoMenuModal from "../Game/VideoModal/Index";
 
 const ContentWhenInHouse = () => {
   const rooms = Object.values(useSelector((state) => state.rooms));
@@ -34,7 +35,7 @@ const ContentWhenInHouse = () => {
   return (
     <>
       <div className="activities-menu-modal">
-        <GameMenuModal />
+        <VideoMenuModal />
         <GameMenuModal />
       </div>
       <div className="rooms-heading-and-settings-row">

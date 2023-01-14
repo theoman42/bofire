@@ -14,7 +14,7 @@ const LeftMenuContent = () => {
         setContentForLeftMenu(<ContentWhenInHouse />);
         break;
       case "homePage":
-        setContentForLeftMenu(<div>This is a home</div>);
+        setContentForLeftMenu(<div>Welcome Home!</div>);
         break;
       case "profilePage":
         setContentForLeftMenu(<ProfileSettings />);

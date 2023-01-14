@@ -2,3 +2,11 @@
   display: flex;
   background-color: #1e2124;
 }
+
+.home-page-welcome-font {
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 36px;
+}
